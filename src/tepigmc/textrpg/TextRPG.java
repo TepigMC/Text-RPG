@@ -1,6 +1,6 @@
 package tepigmc.textrpg;
 
-public class TextRPG {
+public class TextRpg {
   public static void main(String[] args) {
     System.out.println("Hello World!");
   }
