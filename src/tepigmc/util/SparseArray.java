@@ -1,4 +1,4 @@
-package tepigmc.textrpg.util;
+package tepigmc.util;
 
 import java.util.ArrayList;
 import java.util.List;

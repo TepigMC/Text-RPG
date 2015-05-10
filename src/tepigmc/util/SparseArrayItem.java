@@ -1,4 +1,4 @@
-package tepigmc.textrpg.util;
+package tepigmc.util;
 
 public class SparseArrayItem<T> {
   private int row;

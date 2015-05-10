@@ -3,7 +3,7 @@ package tepigmc.textrpg.room;
 import java.util.List;
 
 import tepigmc.textrpg.tile.Tile;
-import tepigmc.textrpg.util.SparseArray;
+import tepigmc.util.SparseArray;
 
 public class Room {
   private SparseArray<Tile> tiles;
