@@ -3,16 +3,16 @@ package tepigmc.textrpg.room;
 import java.util.List;
 
 import tepigmc.textrpg.tile.Tile;
-import tepigmc.util.MatrixArray;
+import tepigmc.util.RectangleArray;
 
 public class Room {
-  private MatrixArray<Tile> tiles;
+  private RectangleArray<Tile> tiles;
   
   /**
    * Constructs a Room with a Tile MatrixArray
    * @param tiles as a MatrixArray<Tile>
    */
-  public Room(MatrixArray<Tile> tiles) {
+  public Room(RectangleArray<Tile> tiles) {
     this.tiles = tiles;
   }
   
@@ -21,7 +21,7 @@ public class Room {
    * @param tiles as a Tile array
    */
   public Room(Tile[][] tiles) {
-    this(new MatrixArray<Tile>(tiles));
+    this(new RectangleArray<Tile>(tiles));
   }
   
   /**
@@ -29,14 +29,14 @@ public class Room {
    * @param tiles as a Tile List
    */
   public Room(List<List<Tile>> tiles) {
-    this(new MatrixArray<Tile>(tiles));
+    this(new RectangleArray<Tile>(tiles));
   }
   
   /**
    * Gets the tiles MatrixArray
    * @return tiles
    */
-  public MatrixArray<Tile> getTiles() {
+  public RectangleArray<Tile> getTiles() {
     return this.tiles;
   }
 }

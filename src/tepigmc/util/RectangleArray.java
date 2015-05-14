@@ -2,7 +2,7 @@ package tepigmc.util;
 
 import java.util.List;
 
-public class MatrixArray<E> {
+public class RectangleArray<E> {
   private int rows;
   private int cols;
   private E[][] data;
@@ -12,7 +12,7 @@ public class MatrixArray<E> {
    * @param rows
    * @param cols
    */
-  public MatrixArray(int rows, int cols) {
+  public RectangleArray(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
   }
@@ -21,7 +21,7 @@ public class MatrixArray<E> {
    * Constructs a MatrixArray with given data as an array
    * @param data as an array
    */
-  public MatrixArray(E[][] data) {
+  public RectangleArray(E[][] data) {
     this(data.length, data[0].length);
     setData(data);
   }
@@ -30,7 +30,7 @@ public class MatrixArray<E> {
    * Constructs a MatrixArray with given data as a List
    * @param data as a List
    */
-  public MatrixArray(List<List<E>> data) {
+  public RectangleArray(List<List<E>> data) {
     this(data.size(), ListUtils.getListWidth(data));
     setData(data);
   }
