@@ -1,5 +1,8 @@
 *.class
 
+# Temporary Project Log
+~$Project Log.xlsx
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
