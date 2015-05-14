@@ -3,7 +3,7 @@ package tepigmc.textrpg.room;
 import java.util.HashMap;
 
 import tepigmc.textrpg.tile.Tile;
-import tepigmc.util.MatrixArray;
+import tepigmc.util.RectangleArray;
 
 public class RoomGenerator {
   /**
@@ -12,7 +12,7 @@ public class RoomGenerator {
    * @param hashMap the corresponding Tile objects for each Character
    * @return a MatrixArray of Tile objects
    */
-  public static MatrixArray<Tile> createTiles(String[] layout, HashMap<Character, Tile> hashMap) {
+  public static RectangleArray<Tile> createTiles(String[] layout, HashMap<Character, Tile> hashMap) {
     // Calculate the width the room will be
     int mapWidth = 0;
     int mapHeight = layout.length;
@@ -30,6 +30,6 @@ public class RoomGenerator {
         tileMap[r][c] = hashMap.get(row.charAt(c));
       }
     }
-    return new MatrixArray<Tile>(tileMap);
+    return new RectangleArray<Tile>(tileMap);
   }
 }
