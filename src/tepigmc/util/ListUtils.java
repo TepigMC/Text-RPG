@@ -34,7 +34,7 @@ public class ListUtils {
     }
     return array;
   }
-  
+
   /**
    * Gets the width of a 2D List
    * @param list the 2D List to check

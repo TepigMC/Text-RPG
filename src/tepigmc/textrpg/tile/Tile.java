@@ -4,7 +4,7 @@ public class Tile {
   private String id;
   private char icon;
   private boolean isSolid;
-  
+
   /**
    * Constructs a Tile object
    * @param id the id to be used to identify Tile types
@@ -16,7 +16,7 @@ public class Tile {
     this.icon = icon;
     this.isSolid = isSolid;
   }
-  
+
   /**
    * Gets the id used to identify Tile types
    * @return id
@@ -24,7 +24,7 @@ public class Tile {
   public String getId() {
     return this.id;
   }
-  
+
   /**
    * Gets the icon shown in the map screen
    * @return icon
@@ -32,7 +32,7 @@ public class Tile {
   public char getIcon() {
     return this.icon;
   }
-  
+
   /**
    * Gets if the Tile is solid
    * @return isSolid
@@ -48,7 +48,7 @@ public class Tile {
   public void setId(String id) {
     this.id = id;
   }
-  
+
   /**
    * Sets the icon shown in the map screen to the given icon
    * @param icon
@@ -56,7 +56,7 @@ public class Tile {
   public void setIcon(char icon) {
     this.icon = icon;
   }
-  
+
   /**
    * Sets if the Tile is solid to isSolid
    * @param isSolid
@@ -71,11 +71,8 @@ public class Tile {
    * @return if the Tiles are equal
    */
   public boolean equals(Tile compare) {
-    if (this.getId() == compare.getId()
-        && this.getIcon() == compare.getIcon()
-        && this.getSolid() == compare.getSolid()) {
-      return true;
-    }
+    if (this.getId() == compare.getId() && this.getIcon() == compare.getIcon()
+        && this.getSolid() == compare.getSolid()) { return true; }
     return false;
   }
 }
