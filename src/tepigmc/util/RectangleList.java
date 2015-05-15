@@ -31,7 +31,7 @@ public class RectangleList<E> {
    * @param data as a List
    */
   public RectangleList(List<List<E>> data) {
-    this(data.size(), ListUtils.getListWidth(data));
+    this(data.size(), ListUtils.getWidth(data));
     setData(data);
   }
   
@@ -65,7 +65,7 @@ public class RectangleList<E> {
    * @return data converted to an array
    */
   public E[][] toArray() {
-    return ListUtils.toArray(this.data);
+    return ListUtils.to2DArray(this.data);
   }
   
   /**
@@ -81,6 +81,6 @@ public class RectangleList<E> {
    * @param data the array to set data to
    */
   public void setData(E[][] data) {
-    this.data = ListUtils.toList(data);
+    this.data = ArrayUtils.toList(data);
   }
 }

@@ -31,7 +31,7 @@ public class RectangleArray<E> {
    * @param data as a List
    */
   public RectangleArray(List<List<E>> data) {
-    this(data.size(), ListUtils.getListWidth(data));
+    this(data.size(), ListUtils.getWidth(data));
     setData(data);
   }
   
@@ -65,7 +65,7 @@ public class RectangleArray<E> {
    * @return data converted to a List
    */
   public List<List<E>> toList() {
-    return ListUtils.toList(this.data);
+    return ArrayUtils.toList(this.data);
   }
   
   /**
@@ -81,6 +81,6 @@ public class RectangleArray<E> {
    * @param data as a List
    */
   public void setData(List<List<E>> data) {
-    this.data = ListUtils.toArray(data);
+    this.data = ListUtils.to2DArray(data);
   }
 }
