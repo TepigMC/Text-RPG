@@ -2,13 +2,13 @@ package tepigmc.util;
 
 import java.util.List;
 
-public class RectangleArray<E> {
+public class RectangleArray<E> implements RectangleStorage<E> {
   private int rows;
   private int cols;
   private E[][] data;
 
   /**
-   * Constructs an empty MatrixArray with given size
+   * Constructs an empty RectangleArray with given size
    * @param rows
    * @param cols
    */
@@ -18,7 +18,7 @@ public class RectangleArray<E> {
   }
 
   /**
-   * Constructs a MatrixArray with given data as an array
+   * Constructs a RectangleArray with given data as an array
    * @param data as an array
    */
   public RectangleArray(E[][] data) {
@@ -27,7 +27,7 @@ public class RectangleArray<E> {
   }
 
   /**
-   * Constructs a MatrixArray with given data as a List
+   * Constructs a RectangleArray with given data as a List
    * @param data as a List
    */
   public RectangleArray(List<List<E>> data) {
@@ -52,14 +52,6 @@ public class RectangleArray<E> {
   }
 
   /**
-   * Gets the data array
-   * @return data
-   */
-  public E[][] get() {
-    return this.data;
-  }
-
-  /**
    * Gets the item at the given position
    * @param row the row position
    * @param col the column position
@@ -67,6 +59,17 @@ public class RectangleArray<E> {
   public E get(int row, int col) {
     rangeCheck(row, col);
     return this.data[row][col];
+  }
+
+  /**
+   * Sets the item at the given position to the given item
+   * @param row the row position
+   * @param col the column position
+   * @param item the item to set to the given position
+   */
+  public void set(int row, int col, E item) {
+    rangeCheck(row, col);
+    this.data[row][col] = item;
   }
 
   /**
@@ -86,14 +89,11 @@ public class RectangleArray<E> {
   }
 
   /**
-   * Sets the item at the given position to the given item
-   * @param row the row position
-   * @param col the column position
-   * @param item the item to set to the given position
+   * Gets the data array
+   * @return data
    */
-  public void set(int row, int col, E item) {
-    rangeCheck(row, col);
-    this.data[row][col] = item;
+  public E[][] toArray() {
+    return this.data;
   }
 
   /**

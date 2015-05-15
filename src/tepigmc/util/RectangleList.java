@@ -2,7 +2,7 @@ package tepigmc.util;
 
 import java.util.List;
 
-public class RectangleList<E> {
+public class RectangleList<E> implements RectangleStorage<E> {
   private int rows;
   private int cols;
   private List<List<E>> data;
@@ -52,21 +52,24 @@ public class RectangleList<E> {
   }
 
   /**
-   * Gets the data List
-   * @return data
-   */
-  public List<List<E>> get() {
-    return this.data;
-  }
-
-  /**
    * Gets the item at the given position
    * @param row the row position
    * @param col the column position
    */
-  public void get(int row, int col) {
+  public E get(int row, int col) {
     rangeCheck(row, col);
-    this.data.get(row).get(col);
+    return this.data.get(row).get(col);
+  }
+
+  /**
+   * Sets the item at the given position to the given item
+   * @param row the row position
+   * @param col the column position
+   * @param item the item to set to the given position
+   */
+  public void set(int row, int col, E item) {
+    rangeCheck(row, col);
+    this.data.get(row).set(col, item);
   }
 
   /**
@@ -84,24 +87,21 @@ public class RectangleList<E> {
   public void set(E[][] data) {
     this.data = ArrayUtils.toList(data);
   }
-
-  /**
-   * Sets the item at the given position to the given item
-   * @param row the row position
-   * @param col the column position
-   * @param item the item to set to the given position
-   */
-  public void set(int row, int col, E item) {
-    rangeCheck(row, col);
-    this.data.get(row).set(col, item);
-  }
-
+  
   /**
    * Gets the data List converted to an array
    * @return data converted to an array
    */
   public E[][] toArray() {
     return ListUtils.to2DArray(this.data);
+  }
+
+  /**
+   * Gets the data List
+   * @return data
+   */
+  public List<List<E>> toList() {
+    return this.data;
   }
 
   /**
