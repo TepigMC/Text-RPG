@@ -13,11 +13,9 @@ public class ListUtils {
     int cols = list.get(0).size();
     @SuppressWarnings("unchecked")
     T[][] array = (T[][]) new Object[rows][cols];
-    for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < cols; c++) {
+    for (int r = 0; r < rows; r++)
+      for (int c = 0; c < cols; c++)
         array[r][c] = list.get(r).get(c);
-      }
-    }
     return array;
   }
 
@@ -29,9 +27,8 @@ public class ListUtils {
   public static <T> T[] toArray(List<T> list) {
     @SuppressWarnings("unchecked")
     T[] array = (T[]) new Object[list.size()];
-    for (int i = 0; i < list.size(); i++) {
+    for (int i = 0; i < list.size(); i++)
       array[i] = list.get(i);
-    }
     return array;
   }
 
@@ -44,9 +41,7 @@ public class ListUtils {
     int cols = 0, size;
     for (List<T> row : list) {
       size = row.size();
-      if (size > cols) {
-        cols = size;
-      }
+      if (size > cols) cols = size;
     }
     return cols;
   }
@@ -60,9 +55,8 @@ public class ListUtils {
     int cols = getWidth(list);
     for (int r = 0; r < list.size(); r++) {
       List<T> row = list.get(r);
-      while (row.size() < cols) {
+      while (row.size() < cols)
         row.add(null);
-      }
     }
     return list;
   }

@@ -13,9 +13,8 @@ public class ArrayUtils {
     List<List<T>> list = new ArrayList<List<T>>();
     for (T[] row : array) {
       List<T> rowList = new ArrayList<T>();
-      for (T item : row) {
+      for (T item : row)
         rowList.add(item);
-      }
       list.add(rowList);
     }
     return list;
@@ -28,9 +27,8 @@ public class ArrayUtils {
    */
   public static <T> List<T> toList(T[] array) {
     List<T> list = new ArrayList<T>();
-    for (T item : array) {
+    for (T item : array)
       list.add(item);
-    }
     return list;
   }
 
@@ -73,9 +71,8 @@ public class ArrayUtils {
     String arrayString = "[";
     for (int i = 0; i < array.length; i++) {
       arrayString += "[";
-      for (int j = 0; j < array[0].length; j++) {
+      for (int j = 0; j < array[0].length; j++)
         arrayString += array[i][j] + (j < array[0].length - 1 ? "," : "");
-      }
       arrayString += "]" + (i < array.length - 1 ? "," : "]");
     }
     return arrayString;
@@ -87,11 +84,10 @@ public class ArrayUtils {
    * @return the String representation of the array
    */
   public static <T> String toString(T[] array) {
-    if (array == null) { return "null"; }
+    if (array == null) return "null";
     String arrayString = "[";
-    for (int i = 0; i < array.length; i++) {
+    for (int i = 0; i < array.length; i++)
       arrayString += array[i] + (i < array.length - 1 ? "," : "");
-    }
     return arrayString + "]";
   }
 
@@ -102,16 +98,14 @@ public class ArrayUtils {
    * @return whether the two 2D arrays are equal
    */
   public static <T> boolean equals(T[][] a, T[][] b) {
-    if (a.length != b.length || a[0].length != b[0].length) { return false; }
-    for (int i = 0; i < a.length; i++) {
-      for (int j = 0; j < a[0].length; j++) {
+    if (a.length != b.length || a[0].length != b[0].length) return false;
+    for (int i = 0; i < a.length; i++)
+      for (int j = 0; j < a[0].length; j++)
         if (!a[i][j].equals(b[i][j])) {
           System.err.println("Array " + toString(a) + " differs from "
               + toString(b) + ".");
           return false;
         }
-      }
-    }
     return true;
   }
 
@@ -123,13 +117,12 @@ public class ArrayUtils {
    */
   public static <T> boolean equals(T[] a, T[] b) {
     if (a.length != b.length) { return false; }
-    for (int i = 0; i < a.length; i++) {
+    for (int i = 0; i < a.length; i++)
       if (!a[i].equals(b[i])) {
         System.err.println("Array " + toString(a) + " differs from "
             + toString(b) + ".");
         return false;
       }
-    }
     return true;
   }
 }

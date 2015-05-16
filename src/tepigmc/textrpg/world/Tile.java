@@ -1,4 +1,4 @@
-package tepigmc.textrpg.tile;
+package tepigmc.textrpg.world;
 
 public class Tile {
   private String id;
@@ -72,7 +72,7 @@ public class Tile {
    */
   public boolean equals(Tile compare) {
     if (this.getId() == compare.getId() && this.getIcon() == compare.getIcon()
-        && this.getSolid() == compare.getSolid()) { return true; }
+        && this.getSolid() == compare.getSolid()) return true;
     return false;
   }
 }

@@ -1,8 +1,7 @@
-package tepigmc.textrpg.room;
+package tepigmc.textrpg.world;
 
 import java.util.HashMap;
 
-import tepigmc.textrpg.tile.Tile;
 import tepigmc.util.GridArray;
 
 public class RoomGenerator {
@@ -19,17 +18,14 @@ public class RoomGenerator {
     int mapHeight = layout.length;
     for (String row : layout) {
       int length = row.length();
-      if (mapWidth < length) {
-        mapWidth = length;
-      }
+      if (mapWidth < length) mapWidth = length;
     }
     // Fill the array with tiles corresponding to the Characters
     Tile[][] tileMap = new Tile[mapHeight][mapWidth];
     for (int r = 0; r < mapHeight; r++) {
       String row = layout[r];
-      for (int c = 0; c < row.length(); c++) {
+      for (int c = 0; c < row.length(); c++)
         tileMap[r][c] = hashMap.get(row.charAt(c));
-      }
     }
     return new GridArray<Tile>(tileMap);
   }

@@ -94,11 +94,9 @@ public class GridArray<E> implements GridStorage<E> {
    * @return if this contains target
    */
   public boolean contains(E target) {
-    for (E[] row : this.data) {
-      for (E item : row) {
-        if (item.equals(target)) { return true; }
-      }
-    }
+    for (E[] row : this.data)
+      for (E item : row)
+        if (item.equals(target)) return true;
     return false;
   }
 
@@ -133,21 +131,19 @@ public class GridArray<E> implements GridStorage<E> {
    * @exception IndexOutOfBoundsException when position is out of bounds
    */
   private void rangeCheck(int row, int col) {
-    if (row >= this.rows || col >= this.cols) { throw new IndexOutOfBoundsException(
-        "Row: " + row + ", Col: " + col + ", Rows: " + this.rows + ", Cols: "
-            + this.cols); }
+    if (row >= this.rows || col >= this.cols)
+      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
+          + ", Rows: " + this.rows + ", Cols: " + this.cols);
   }
 
   /**
    * Allows this to be used in a foreach loop
    * @return an Iterator object
    */
-  /*public Iterator<Iterator<E>> iterator() {
-    List<Iterator<E>> iterators = new ArrayList<Iterator<E>>();
-    for (E[] row : this.data) {
-      List<E> rowList = ArrayUtils.toList(row);
-      iterators.add(rowList.iterator());
-    }
-    return iterators.iterator();
-  }*/
+  /*
+   * public Iterator<Iterator<E>> iterator() { List<Iterator<E>> iterators = new
+   * ArrayList<Iterator<E>>(); for (E[] row : this.data) { List<E> rowList =
+   * ArrayUtils.toList(row); iterators.add(rowList.iterator()); } return
+   * iterators.iterator(); }
+   */
 }

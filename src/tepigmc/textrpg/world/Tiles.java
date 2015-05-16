@@ -1,4 +1,4 @@
-package tepigmc.textrpg.tile;
+package tepigmc.textrpg.world;
 
 public class Tiles {
   public static final Tile empty = new Tile("tile_empty", ' ', false);
