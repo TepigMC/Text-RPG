@@ -1,6 +1,6 @@
 package tepigmc.textrpg.entity;
 
-import tepigmc.textrpg.location.Coordinates;
+import tepigmc.textrpg.world.Coordinates;
 
 public abstract class Entity {
   private Coordinates coordinates;

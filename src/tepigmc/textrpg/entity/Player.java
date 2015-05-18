@@ -1,6 +1,6 @@
 package tepigmc.textrpg.entity;
 
-import tepigmc.textrpg.location.Coordinates;
+import tepigmc.textrpg.world.Coordinates;
 
 public class Player extends Entity {
   /**

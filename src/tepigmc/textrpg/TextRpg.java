@@ -1,7 +1,7 @@
 package tepigmc.textrpg;
 
 import tepigmc.textrpg.entity.Player;
-import tepigmc.textrpg.location.Coordinates;
+import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.World;
 
 public class TextRpg {

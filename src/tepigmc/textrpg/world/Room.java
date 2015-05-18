@@ -3,7 +3,6 @@ package tepigmc.textrpg.world;
 import java.util.List;
 
 import tepigmc.textrpg.TextRpg;
-import tepigmc.textrpg.location.Coordinates;
 import tepigmc.util.GridArray;
 import tepigmc.util.GridStorage;
 
