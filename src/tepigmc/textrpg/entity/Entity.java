@@ -25,6 +25,14 @@ public abstract class Entity {
   public Entity(int x, int y, char icon) {
     this(new Coordinates(x, y), icon);
   }
+  
+  /**
+   * Creates an Entity with the same data as the given Entity
+   * @param x the Entity to copy
+   */
+  public Entity(Entity entity) {
+    this(entity.getX(), entity.getY(), entity.getIcon());
+  }
 
   /**
    * Gets the horizontal position of the Entity

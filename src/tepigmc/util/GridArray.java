@@ -85,7 +85,7 @@ public class GridArray<E> implements GridStorage<E> {
    * @param data as a List
    */
   public void set(List<List<E>> data) {
-    this.data = ListUtils.to2DArray(data);
+    this.data = ListUtils.toArray2D(data);
   }
 
   /**
