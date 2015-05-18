@@ -3,11 +3,12 @@ package tepigmc.textrpg.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.entity.Entity;
 import tepigmc.util.GridStorage;
 
 public class Room {
+  private static int nextId = 0;
+
   private GridStorage<Tile> tiles;
   private List<Entity> entities;
   private int id;
@@ -20,8 +21,8 @@ public class Room {
   public Room(GridStorage<Tile> tiles, List<Entity> entities) {
     this.tiles = tiles;
     this.entities = entities;
-    this.id = TextRpg.nextRoomId;
-    TextRpg.nextRoomId++;
+    this.id = nextId;
+    nextId++;
   }
 
   /**
@@ -74,6 +75,6 @@ public class Room {
   public int getId() {
     return this.id;
   }
-  
+
   // TODO render tiles
 }

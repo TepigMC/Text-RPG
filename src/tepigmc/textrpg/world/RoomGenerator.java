@@ -1,7 +1,5 @@
-package tepigmc.textrpg.world.generator;
+package tepigmc.textrpg.world;
 
-import tepigmc.textrpg.world.RoomLayout;
-import tepigmc.textrpg.world.Tiles;
 
 public class RoomGenerator {
   /**

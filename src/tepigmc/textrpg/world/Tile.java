@@ -66,14 +66,14 @@ public class Tile {
   }
 
   /**
-   * Compares this and another Tile and returns whether the Tiles are equal
+   * Compares this and another Tile and returns whether the Tile objects are
+   * equal
    * @param compare the Tile to compare to
-   * @return if the Tiles are equal
+   * @return if the Tile objects are equal
    */
   public boolean equals(Tile compare) {
-    if (this.getId() == compare.getId() && this.getIcon() == compare.getIcon()
-        && this.getSolid() == compare.getSolid()) return true;
-    return false;
+    return getId() == compare.getId() && getIcon() == compare.getIcon()
+        && getSolid() == compare.getSolid();
   }
 
   /**

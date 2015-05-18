@@ -1,4 +1,4 @@
-package tepigmc.textrpg.world.generator.test;
+package tepigmc.textrpg.world.test;
 
 import static org.junit.Assert.*;
 
@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import tepigmc.textrpg.world.RoomGenerator;
 import tepigmc.textrpg.world.RoomLayout;
-import tepigmc.textrpg.world.generator.RoomGenerator;
 
 public class RoomGeneratorTest {
   @Before
