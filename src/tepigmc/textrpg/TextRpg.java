@@ -3,6 +3,8 @@ package tepigmc.textrpg;
 import tepigmc.textrpg.entity.Player;
 import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Room;
+import tepigmc.textrpg.world.RoomGenerator;
+import tepigmc.textrpg.world.RoomLayout;
 import tepigmc.textrpg.world.World;
 
 public class TextRpg {
@@ -22,6 +24,11 @@ public class TextRpg {
   private static void setup() {
     player = new Player(new Coordinates(0, 0), '\u263A');
     world = new World();
+    RoomLayout roomLayout = new RoomLayout(7, 5);
+    RoomGenerator.empty(roomLayout);
+    RoomGenerator.border(roomLayout);
+    world.addRoom(new Room(roomLayout));
+    TextRpgUI.init();
   }
   
   /**

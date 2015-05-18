@@ -32,6 +32,14 @@ public class Room {
   public Room(GridStorage<Tile> tiles) {
     this(tiles, new ArrayList<Entity>());
   }
+  
+  /**
+   * Constructs a Room from a RoomLayout
+   * @param roomLayout the RoomLayout to create the World from
+   */
+  public Room(RoomLayout roomLayout) {
+    this(roomLayout.createTiles());
+  }
 
   /**
    * Gets the tiles GridStorage
@@ -76,5 +84,14 @@ public class Room {
     return this.id;
   }
 
-  // TODO render tiles
+  /**
+   * Renders the tiles and entities in the Room
+   */
+  public char[][] render() {
+    int rows = this.tiles.rows();
+    for (int r = 0; r < rows; r++) {
+      // TODO cols
+    }
+    return null;
+  }
 }

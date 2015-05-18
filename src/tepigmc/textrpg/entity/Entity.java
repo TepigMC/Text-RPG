@@ -18,21 +18,11 @@ public abstract class Entity {
   }
 
   /**
-   * Creates an Entity with given coordinates and icon
-   * @param x the horizontal position of the Entity
-   * @param y the vertical position of the Entity
-   * @param icon the char used to display this Entity in the UI
-   */
-  public Entity(int x, int y, char icon) {
-    this(new Coordinates(x, y), icon);
-  }
-
-  /**
    * Creates an Entity with the same data as the given Entity
    * @param x the Entity to copy
    */
   public Entity(Entity entity) {
-    this(entity.getX(), entity.getY(), entity.getIcon());
+    this(entity.getCoordinates(), entity.getIcon());
   }
 
   /**
