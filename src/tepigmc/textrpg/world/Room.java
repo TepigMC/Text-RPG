@@ -1,43 +1,39 @@
 package tepigmc.textrpg.world;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tepigmc.textrpg.TextRpg;
-import tepigmc.util.GridArray;
+import tepigmc.textrpg.entity.Entity;
 import tepigmc.util.GridStorage;
 
 public class Room {
   private GridStorage<Tile> tiles;
+  private List<Entity> entities;
   private int id;
 
   /**
-   * Constructs a Room with a Tile MatrixArray
-   * @param tiles as a MatrixArray<Tile>
+   * Constructs a Room with a Tile GridStorage and a List of Entity objects
+   * @param tiles a GridStorage of Tiles
+   * @param entities a List of Entities
    */
-  public Room(GridStorage<Tile> tiles) {
+  public Room(GridStorage<Tile> tiles, List<Entity> entities) {
     this.tiles = tiles;
+    this.entities = entities;
     this.id = TextRpg.nextRoomId;
     TextRpg.nextRoomId++;
   }
 
   /**
-   * Constructs a Room with a Tile array
-   * @param tiles as a Tile array
+   * Constructs a Room with a Tile GridStorage and no Entity objects
+   * @param tiles a GridStorage of Tiles
    */
-  public Room(Tile[][] tiles) {
-    this(new GridArray<Tile>(tiles));
+  public Room(GridStorage<Tile> tiles) {
+    this(tiles, new ArrayList<Entity>());
   }
 
   /**
-   * Constructs a Room with a Tile List
-   * @param tiles as a Tile List
-   */
-  public Room(List<List<Tile>> tiles) {
-    this(new GridArray<Tile>(tiles));
-  }
-
-  /**
-   * Gets the tiles MatrixArray
+   * Gets the tiles GridStorage
    * @return tiles
    */
   public GridStorage<Tile> getTiles() {
@@ -64,10 +60,20 @@ public class Room {
   }
 
   /**
+   * Gets the List of Entity objects
+   * @return entities
+   */
+  public List<Entity> getEntities() {
+    return this.entities;
+  }
+
+  /**
    * Gets the unique id of this room
    * @return the id
    */
   public int getId() {
     return this.id;
   }
+  
+  // TODO render tiles
 }

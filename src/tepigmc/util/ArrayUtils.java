@@ -22,11 +22,10 @@ public class ArrayUtils {
    * @param array the 2D array to convert
    * @return the resulting 2D List
    */
-  public static <T> List<List<T>> toList(T[][] array) {
+  public static <T> List<List<T>> toList2D(T[][] array) {
     List<List<T>> list = new ArrayList<List<T>>();
-    for (T[] row : array) {
+    for (T[] row : array)
       list.add(toList(row));
-    }
     return list;
   }
 
@@ -114,7 +113,7 @@ public class ArrayUtils {
     if (array == null) return "null";
     String arrayString = "[";
     for (int i = 0; i < array.length; i++)
-      arrayString += array[i] + (i < array.length - 1 ? "," : "");
+      arrayString += array[i] + (i < array.length - 1 ? ", " : "");
     return arrayString + "]";
   }
 
@@ -123,14 +122,11 @@ public class ArrayUtils {
    * @param array to create the String from
    * @return the String representation of the array
    */
-  public static <T> String toString(T[][] array) {
+  public static <T> String toString2D(T[][] array) {
+    if (array == null) return "null";
     String arrayString = "[";
-    for (int i = 0; i < array.length; i++) {
-      arrayString += "[";
-      for (int j = 0; j < array[0].length; j++)
-        arrayString += array[i][j] + (j < array[0].length - 1 ? "," : "");
-      arrayString += "]" + (i < array.length - 1 ? "," : "]");
-    }
+    for (int i = 0; i < array.length; i++)
+      arrayString += toString(array[i]) + (i < array.length - 1 ? ", " : "]");
     return arrayString;
   }
 

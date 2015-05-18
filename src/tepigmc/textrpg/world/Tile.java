@@ -75,4 +75,12 @@ public class Tile {
         && this.getSolid() == compare.getSolid()) return true;
     return false;
   }
+
+  /**
+   * Creates a String representation of this Tile
+   */
+  public String toString() {
+    return "Tile(id: " + this.id + ", icon: " + this.icon + ", isSolid: "
+        + this.isSolid + ")";
+  }
 }

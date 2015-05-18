@@ -2,9 +2,10 @@ package tepigmc.textrpg.world;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class World {
-  private HashMap<Integer, Room> rooms;
+  private Map<Integer, Room> rooms;
   
   /**
    * Creates a new empty World

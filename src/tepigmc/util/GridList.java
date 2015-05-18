@@ -85,7 +85,7 @@ public class GridList<E> implements GridStorage<E> {
    * @param data the array to set data to
    */
   public void set(E[][] data) {
-    this.data = ArrayUtils.toList(data);
+    this.data = ArrayUtils.toList2D(data);
   }
 
   /**
@@ -124,6 +124,13 @@ public class GridList<E> implements GridStorage<E> {
     return new GridArray<E>(ListUtils.toArray2D(this.data));
   }
 
+  /**
+   * Creates a String representation of this GridList
+   */
+  public String toString() {
+    return this.data.toString();
+  }
+  
   /**
    * Throws error if position is out of bounds
    * @param row the row position to verify

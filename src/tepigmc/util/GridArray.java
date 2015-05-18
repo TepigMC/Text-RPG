@@ -113,7 +113,7 @@ public class GridArray<E> implements GridStorage<E> {
    * @return data converted to a List
    */
   public List<List<E>> toList() {
-    return ArrayUtils.toList(this.data);
+    return ArrayUtils.toList2D(this.data);
   }
 
   /**
@@ -121,7 +121,7 @@ public class GridArray<E> implements GridStorage<E> {
    * @return data converted to a GridList
    */
   public GridList<E> toGridList() {
-    return new GridList<E>(ArrayUtils.toList(this.data));
+    return new GridList<E>(ArrayUtils.toList2D(this.data));
   }
 
   /**
@@ -136,6 +136,13 @@ public class GridArray<E> implements GridStorage<E> {
           + ", Rows: " + this.rows + ", Cols: " + this.cols);
   }
 
+  /**
+   * Creates a String representation of this GridArray
+   */
+  public String toString() {
+    return ArrayUtils.toString2D(this.data);
+  }
+  
   /**
    * Allows this to be used in a foreach loop
    * @return an Iterator object

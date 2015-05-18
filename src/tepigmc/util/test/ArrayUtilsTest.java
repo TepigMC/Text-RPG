@@ -9,7 +9,6 @@ import org.junit.Test;
 import tepigmc.util.ArrayUtils;
 
 public class ArrayUtilsTest {
-
   @Before
   public void setUp() throws Exception {
   }
