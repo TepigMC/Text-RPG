@@ -154,6 +154,20 @@ public class GridArray<E> implements GridStorage<E> {
   }
 
   /**
+   * Compares this with another GridStorage
+   * @param compare the GridStorage to compare with
+   * @return whether the GridStorage objects contain equal data
+   */
+  public boolean equals(GridStorage<E> compare) {
+    E[][] array = this.data, compareArray = compare.toArray();
+    for (int r = 0; r < array.length; r++)
+      for (int c = 0; c < array[0].length; c++)
+        if (array[r][c] != compareArray[r][c])
+          return false;
+    return true;
+  }
+
+  /**
    * Allows this to be used in a foreach loop
    * @return an Iterator object
    */

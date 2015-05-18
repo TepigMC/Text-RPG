@@ -142,6 +142,15 @@ public class GridList<E> implements GridStorage<E> {
   }
 
   /**
+   * Compares this with another GridStorage
+   * @param compare the GridStorage to compare with
+   * @return whether the GridStorage objects contain equal data
+   */
+  public boolean equals(GridStorage<E> compare) {
+    return this.data.equals(compare.toList());
+  }
+
+  /**
    * Throws error if position is out of bounds
    * @param row the row position to verify
    * @param col the column position to verify

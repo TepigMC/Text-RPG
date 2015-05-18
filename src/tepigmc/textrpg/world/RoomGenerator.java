@@ -1,43 +1,44 @@
 package tepigmc.textrpg.world;
 
+import tepigmc.util.GridStorage;
 
 public class RoomGenerator {
   /**
-   * Sets the layout in a RoomLayout to be empty
-   * @param roomLayout the RoomLayout to empty
-   * @return the modified RoomLayout
+   * Sets the layout in a RoomTemplate to be empty
+   * @param roomTemplate the RoomTemplate to empty
+   * @return the modified RoomTemplate
    */
-  public static RoomLayout empty(RoomLayout roomLayout) {
-    char[][] layout = roomLayout.getLayout();
-    int width = layout[0].length, height = layout.length;
+  public static RoomTemplate empty(RoomTemplate roomTemplate) {
+    GridStorage<Character> layout = roomTemplate.getLayout();
+    int rows = layout.rows(), cols = layout.cols();
     char empty = ' ';
-    for (int r = 0; r < height; r++)
-      for (int c = 0; c < width; c++)
-        roomLayout.set(r, c, empty);
-    roomLayout.put(empty, Tiles.empty);
-    return roomLayout;
+    for (int r = 0; r < rows; r++)
+      for (int c = 0; c < cols; c++)
+        roomTemplate.set(r, c, empty);
+    roomTemplate.put(empty, Tiles.empty);
+    return roomTemplate;
   }
-  
+
   /**
-   * Adds a border around the RoomLayout
-   * @param roomLayout the RoomLayout to modify
-   * @return the modified RoomLayout
+   * Adds a border around the RoomTemplate
+   * @param roomTemplate the RoomTemplate to modify
+   * @return the modified RoomTemplate
    */
-  public static RoomLayout border(RoomLayout roomLayout) {
-    char[][] layout = roomLayout.getLayout();
-    int width = layout[0].length, height = layout.length;
+  public static RoomTemplate border(RoomTemplate roomTemplate) {
+    GridStorage<Character> layout = roomTemplate.getLayout();
+    int rows = layout.rows(), cols = layout.cols();
     char wall = 'x';
-    for (int r = 0; r < height; r++) {
-      if (r == 0 || r == height - 1) {
-        for (int c = 0; c < width; c++)
-          roomLayout.set(r, c, wall);
+    for (int r = 0; r < rows; r++) {
+      if (r == 0 || r == rows - 1) {
+        for (int c = 0; c < cols; c++)
+          roomTemplate.set(r, c, wall);
       }
       else {
-        roomLayout.set(r, 0, wall);
-        roomLayout.set(r, width - 1, wall);
+        roomTemplate.set(r, 0, wall);
+        roomTemplate.set(r, cols - 1, wall);
       }
     }
-    roomLayout.put(wall, Tiles.wall);
-    return roomLayout;
+    roomTemplate.put(wall, Tiles.wall);
+    return roomTemplate;
   }
 }

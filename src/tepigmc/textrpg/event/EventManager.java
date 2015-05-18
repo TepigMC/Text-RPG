@@ -7,7 +7,8 @@ import tepigmc.textrpg.world.Room;
 
 public class EventManager {
   /**
-   * Triggers all the Entity onEntityMove events whenever an Entity changes position
+   * Triggers all the Entity onEntityMove events whenever an Entity changes
+   * position
    * @param entity the Entity that changed position
    */
   public static void onEntityMove(Entity entity) {
@@ -17,4 +18,4 @@ public class EventManager {
     }
     TextRpgUI.refresh();
   }
-} 
+}

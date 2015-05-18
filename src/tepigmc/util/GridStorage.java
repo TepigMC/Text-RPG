@@ -63,6 +63,13 @@ public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
    * @return data converted to a List
    */
   public List<List<E>> toList();
+  
+  /**
+   * Compares this with another GridStorage
+   * @param compare the GridStorage to compare with
+   * @return whether the GridStorage objects contain equal data
+   */
+  public boolean equals(GridStorage<E> compare);
 
   /**
    * Allows this to be used in a foreach loop

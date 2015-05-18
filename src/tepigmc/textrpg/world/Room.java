@@ -34,11 +34,11 @@ public class Room {
   }
   
   /**
-   * Constructs a Room from a RoomLayout
-   * @param roomLayout the RoomLayout to create the World from
+   * Constructs a Room from a RoomTemplate
+   * @param roomTemplate the RoomTemplate to create the World from
    */
-  public Room(RoomLayout roomLayout) {
-    this(roomLayout.createTiles());
+  public Room(RoomTemplate roomTemplate) {
+    this(roomTemplate.createTiles());
   }
 
   /**

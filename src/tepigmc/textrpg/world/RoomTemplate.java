@@ -5,38 +5,49 @@ import java.util.Map;
 
 import tepigmc.util.ArrayUtils;
 import tepigmc.util.GridArray;
+import tepigmc.util.GridStorage;
 
-public class RoomLayout {
-  private char[][] layout;
+public class RoomTemplate {
+  private GridStorage<Character> layout;
   private Map<Character, Tile> tileMap;
 
   /**
-   * Creates a RoomLayout object
-   * @param layout the layout of the room as a 2D char array
+   * Creates a RoomTemplate object
+   * @param layout the layout of the room in a GridStorage
    * @param tileMap the corresponding Tile objects for each Character
    */
-  public RoomLayout(char[][] layout, Map<Character, Tile> tileMap) {
+  public RoomTemplate(GridStorage<Character> layout,
+      Map<Character, Tile> tileMap) {
     this.layout = layout;
     this.tileMap = tileMap;
   }
 
   /**
-   * Creates a RoomLayout object
-   * @param layout the layout of the Room as a String array
+   * Creates a RoomTemplate object
+   * @param layout the layout of the room in a 2D char array
+   * @param tileMap the corresponding Tile objects for each Character
+   */
+  public RoomTemplate(char[][] layout, Map<Character, Tile> tileMap) {
+    this(new GridArray<Character>(charToCharacter(layout)), tileMap);
+  }
+
+  /**
+   * Creates a RoomTemplate object
+   * @param layout the layout of the Room in a String array
    * @param tileMap the corresponding Tile objects for each Character in the
    *          String array
    */
-  public RoomLayout(String[] layout, Map<Character, Tile> tileMap) {
+  public RoomTemplate(String[] layout, Map<Character, Tile> tileMap) {
     this(ArrayUtils.toCharArray(layout), tileMap);
   }
-  
+
   /**
-   * Creates a RoomLayout object with a given size
-   * @param width the amount of columns in the layout array
-   * @param height the amount of rows in the layout array
+   * Creates a RoomTemplate object with a given size
+   * @param rows the amount of rows in the layout array
+   * @param cols the amount of columns in the layout array
    */
-  public RoomLayout(int width, int height) {
-    this(new char[height][width], new HashMap<Character, Tile>());
+  public RoomTemplate(int rows, int cols) {
+    this(new GridArray<Character>(rows, cols), new HashMap<Character, Tile>());
   }
 
   /**
@@ -44,7 +55,7 @@ public class RoomLayout {
    * layout and tileMap in this
    * @return a GridArray to be used in a Room
    */
-  public GridArray<Tile> createTiles() {
+  public GridStorage<Tile> createTiles() {
     return createTiles(this.layout, this.tileMap);
   }
 
@@ -52,7 +63,7 @@ public class RoomLayout {
    * Gets the 2D char layout of the Room
    * @return the layout
    */
-  public char[][] getLayout() {
+  public GridStorage<Character> getLayout() {
     return this.layout;
   }
 
@@ -64,7 +75,7 @@ public class RoomLayout {
   public Map<Character, Tile> getHashMap() {
     return this.tileMap;
   }
-  
+
   /**
    * Set a char in the layout at a given position to the given key
    * @param row the row in the layout
@@ -73,11 +84,9 @@ public class RoomLayout {
    * @return the previous item at that position
    */
   public char set(int row, int col, char key) {
-    char previous = this.layout[row][col];
-    this.layout[row][col] = key;
-    return previous;
+    return this.layout.set(row, col, key);
   }
-  
+
   /**
    * Adds a key-value pair into the tileMap
    * @param key the key used in the layout
@@ -89,12 +98,29 @@ public class RoomLayout {
   }
 
   /**
+   * Creates a GridStorage of Tile objects that can be used in a Room
+   * @param layout the layout of the room in a GridStorage of Character objects
+   * @param tileMap the corresponding Tile objects for each Character
+   * @return a GridStorage of Tile objects
+   */
+  public static GridStorage<Tile> createTiles(GridStorage<Character> layout,
+      Map<Character, Tile> tileMap) {
+    // Fill the array with tiles corresponding to the characters
+    Tile[][] tiles = new Tile[layout.rows()][layout.cols()];
+    for (int r = 0; r < layout.rows(); r++) {
+      for (int c = 0; c < layout.cols(); c++)
+        tiles[r][c] = tileMap.get(layout.get(r, c));
+    }
+    return new GridArray<Tile>(tiles);
+  }
+
+  /**
    * Creates a GridArray of Tile objects that can be used in a Room
    * @param layout the layout of the room in a 2D char array
    * @param tileMap the corresponding Tile objects for each Character
    * @return a GridArray of Tile objects
    */
-  public static GridArray<Tile> createTiles(char[][] layout,
+  public static GridStorage<Tile> createTiles(char[][] layout,
       Map<Character, Tile> tileMap) {
     // Fill the array with tiles corresponding to the characters
     Tile[][] tiles = new Tile[layout.length][layout[0].length];
@@ -113,8 +139,22 @@ public class RoomLayout {
    *          String array
    * @return a GridArray of Tile objects
    */
-  public static GridArray<Tile> createTiles(String[] layout,
+  public static GridStorage<Tile> createTiles(String[] layout,
       Map<Character, Tile> tileMap) {
     return createTiles(ArrayUtils.toCharArray(layout), tileMap);
+  }
+
+  /**
+   * Converts a char 2D array to a Character 2D array
+   * @param charArray the char 2D array to convert
+   * @return the resulting Character 2D array
+   */
+  private static Character[][] charToCharacter(char[][] charArray) {
+    int rows = charArray.length, cols = charArray[0].length;
+    Character[][] characterArray = new Character[rows][cols];
+    for (int r = 0; r < rows; r++)
+      for (int c = 0; c < cols; c++)
+        characterArray[r][c] = charArray[r][c];
+    return characterArray;
   }
 }
