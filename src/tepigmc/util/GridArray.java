@@ -66,26 +66,35 @@ public class GridArray<E> implements GridStorage<E> {
    * @param row the row position
    * @param col the column position
    * @param item the item to set to the given position
+   * @return the item that was previously at that position
    */
-  public void set(int row, int col, E item) {
+  public E set(int row, int col, E item) {
     rangeCheck(row, col);
+    E previous = this.data[row][col];
     this.data[row][col] = item;
+    return previous;
   }
 
   /**
    * Sets the data to the given data as an array
-   * @param data as an array
+   * @param data the array to set to data
+   * @return the previous data
    */
-  public void set(E[][] data) {
+  public E[][] set(E[][] data) {
+    E[][] previous = this.data;
     this.data = data;
+    return previous;
   }
 
   /**
-   * Sets the data to the given data as a List
-   * @param data as a List
+   * Sets the data to the given List
+   * @param data the List to set to data
+   * @return the previous data
    */
-  public void set(List<List<E>> data) {
+  public List<List<E>> set(List<List<E>> data) {
+    List<List<E>> previous = ArrayUtils.toList2D(this.data);
     this.data = ListUtils.toArray2D(data);
+    return previous;
   }
 
   /**
@@ -96,7 +105,8 @@ public class GridArray<E> implements GridStorage<E> {
   public boolean contains(E target) {
     for (E[] row : this.data)
       for (E item : row)
-        if (item.equals(target)) return true;
+        if (item.equals(target))
+          return true;
     return false;
   }
 
@@ -142,7 +152,7 @@ public class GridArray<E> implements GridStorage<E> {
   public String toString() {
     return ArrayUtils.toString2D(this.data);
   }
-  
+
   /**
    * Allows this to be used in a foreach loop
    * @return an Iterator object

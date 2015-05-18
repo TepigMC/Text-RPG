@@ -2,7 +2,7 @@ package tepigmc.util;
 
 import java.util.List;
 
-public interface GridStorage<E> /*extends Iterable<Iterator<E>>*/ {
+public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
   /**
    * Gets the number of rows
    * @return rows
@@ -27,20 +27,23 @@ public interface GridStorage<E> /*extends Iterable<Iterator<E>>*/ {
    * @param row the row position
    * @param col the column position
    * @param item the item to set to the given position
+   * @return the item that was previously at that position
    */
-  public void set(int row, int col, E item);
+  public E set(int row, int col, E item);
 
   /**
    * Sets the data to the given data as an array
-   * @param data as an array
+   * @param data the array to set to data
+   * @return the previous data
    */
-  public void set(E[][] data);
+  public E[][] set(E[][] data);
 
   /**
-   * Sets the data to the given data as a List
-   * @param data as a List
+   * Sets the data to the given List
+   * @param data the List to set to data
+   * @return the previous data
    */
-  public void set(List<List<E>> data);
+  public List<List<E>> set(List<List<E>> data);
 
   /**
    * Returns true if it contains target
@@ -65,5 +68,5 @@ public interface GridStorage<E> /*extends Iterable<Iterator<E>>*/ {
    * Allows this to be used in a foreach loop
    * @return an Iterator object
    */
-  //public Iterator<Iterator<E>> iterator();
+  // public Iterator<Iterator<E>> iterator();
 }

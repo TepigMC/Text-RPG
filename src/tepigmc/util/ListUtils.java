@@ -23,11 +23,10 @@ public class ListUtils {
    */
   public static <T> T[][] toArray2D(List<List<T>> list) {
     int rows = list.size();
-    int cols = list.get(0).size();
     @SuppressWarnings("unchecked")
-    T[][] array = (T[][]) new Object[rows][cols];
+    T[][] array = (T[][]) new Object[rows][getWidth(list)];
     for (int r = 0; r < rows; r++)
-      for (int c = 0; c < cols; c++)
+      for (int c = 0; c < list.get(r).size(); c++)
         array[r][c] = list.get(r).get(c);
     return array;
   }
