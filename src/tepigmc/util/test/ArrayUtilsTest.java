@@ -21,7 +21,7 @@ public class ArrayUtilsTest {
   public void testToCharArray() {
     char[][] charArray = { {'a', 'b', 'c'}, {'d', 'e', 'f'}};
     String[] stringArray = {"abc", "def"};
-    assertArrayEquals(charArray, ArrayUtils.toCharArray(stringArray));
+    assertArrayEquals(charArray, ArrayUtils.toCharArray2D(stringArray));
   }
 
   @Test

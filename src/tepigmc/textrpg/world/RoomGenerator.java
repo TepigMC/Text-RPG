@@ -9,13 +9,10 @@ public class RoomGenerator {
    * @return the modified RoomTemplate
    */
   public static RoomTemplate empty(RoomTemplate roomTemplate) {
-    GridStorage<Character> layout = roomTemplate.getLayout();
-    int rows = layout.rows(), cols = layout.cols();
-    char empty = ' ';
-    for (int r = 0; r < rows; r++)
-      for (int c = 0; c < cols; c++)
-        roomTemplate.set(r, c, empty);
-    roomTemplate.put(empty, Tiles.empty);
+    GridStorage<Character> layout = roomTemplate.getTemplate();
+    char emptyChar = ' ';
+    layout.setAll(emptyChar);
+    roomTemplate.put(emptyChar, Tiles.empty);
     return roomTemplate;
   }
 
@@ -25,7 +22,7 @@ public class RoomGenerator {
    * @return the modified RoomTemplate
    */
   public static RoomTemplate border(RoomTemplate roomTemplate) {
-    GridStorage<Character> layout = roomTemplate.getLayout();
+    GridStorage<Character> layout = roomTemplate.getTemplate();
     int rows = layout.rows(), cols = layout.cols();
     char wall = 'x';
     for (int r = 0; r < rows; r++) {

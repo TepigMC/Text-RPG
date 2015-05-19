@@ -62,7 +62,7 @@ public class Coordinates {
    * Creates a String representation of this Coordinates object
    */
   public String toString() {
-    return "Coordinates(x: " + this.x + ", y:" + this.y + ")";
+    return "Coordinates(x: " + this.x + ", y: " + this.y + ")";
   }
 
 }

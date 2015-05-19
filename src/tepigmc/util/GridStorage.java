@@ -29,21 +29,32 @@ public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
    * @param item the item to set to the given position
    * @return the item that was previously at that position
    */
-  public E set(int row, int col, E item);
+  public void set(int row, int col, E item);
 
   /**
    * Sets the data to the given data as an array
    * @param data the array to set to data
    * @return the previous data
    */
-  public E[][] set(E[][] data);
+  public void set(E[][] data);
 
   /**
    * Sets the data to the given List
    * @param data the List to set to data
    * @return the previous data
    */
-  public List<List<E>> set(List<List<E>> data);
+  public void set(List<List<E>> data);
+
+  /**
+   * Set all the items in data to be a given value
+   * @param value the value to set to all the items
+   */
+  public void setAll(E value);
+
+  /**
+   * Sets all the items in data to null
+   */
+  public void clear();
 
   /**
    * Returns true if it contains target
@@ -63,7 +74,7 @@ public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
    * @return data converted to a List
    */
   public List<List<E>> toList();
-  
+
   /**
    * Compares this with another GridStorage
    * @param compare the GridStorage to compare with

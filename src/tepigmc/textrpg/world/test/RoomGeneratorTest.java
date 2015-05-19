@@ -26,7 +26,7 @@ public class RoomGeneratorTest {
     RoomGenerator.empty(roomTemplate);
     GridStorage<Character> layout = new GridArray<Character>(new Character[][] {
         {' ', ' ', ' '}, {' ', ' ', ' '}});
-    assertEquals(layout, roomTemplate.getLayout());
+    assertEquals(layout, roomTemplate.getTemplate());
   }
 
   @Test
@@ -39,6 +39,6 @@ public class RoomGeneratorTest {
         {'x', ' ', ' ', ' ', 'x'}, {'x', ' ', ' ', ' ', 'x'},
         {'x', ' ', ' ', ' ', 'x'}, {'x', ' ', ' ', ' ', 'x'},
         {'x', 'x', 'x', 'x', 'x'}});
-    assertEquals(layout, roomTemplate.getLayout());
+    assertEquals(layout, roomTemplate.getTemplate());
   }
 }

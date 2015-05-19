@@ -1,5 +1,6 @@
 package tepigmc.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GridList<E> implements GridStorage<E> {
@@ -15,14 +16,14 @@ public class GridList<E> implements GridStorage<E> {
   public GridList(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
+    setAll(null);
   }
 
   /**
-   * Constructs a RectangeList with given data as an array
+   * Constructs a GridList with given data as an array
    * @param data as an array
    */
   public GridList(E[][] data) {
-    this(data.length, data[0].length);
     set(data);
   }
 
@@ -31,8 +32,15 @@ public class GridList<E> implements GridStorage<E> {
    * @param data as a List
    */
   public GridList(List<List<E>> data) {
-    this(data.size(), ListUtils.getWidth(data));
     set(data);
+  }
+
+  /**
+   * Creates a copy of the given GridStorage
+   * @param gridStorage the GridStorage to copy
+   */
+  public GridList(GridStorage<E> gridStorage) {
+    set(gridStorage.toList());
   }
 
   /**
@@ -66,35 +74,48 @@ public class GridList<E> implements GridStorage<E> {
    * @param row the row position
    * @param col the column position
    * @param item the item to set to the given position
-   * @return the item that was previously at that position
    */
-  public E set(int row, int col, E item) {
+  public void set(int row, int col, E item) {
     rangeCheck(row, col);
-    E previous = this.data.get(row).get(col);
     this.data.get(row).set(col, item);
-    return previous;
   }
 
   /**
    * Sets the data to the given data as an array
    * @param data the array to set to data
-   * @return the previous data
    */
-  public E[][] set(E[][] data) {
-    E[][] previous = ListUtils.toArray2D(this.data);
-    this.data = ArrayUtils.toList2D(data);
-    return previous;
+  public void set(E[][] data) {
+    set(ArrayUtils.toList2D(data));
   }
 
   /**
    * Sets the data to the given List; Makes the widths of the List even
    * @param data the List to set to data
-   * @return the previous data
    */
-  public List<List<E>> set(List<List<E>> data) {
-    List<List<E>> previous = this.data;
+  public void set(List<List<E>> data) {
     this.data = ListUtils.fixWidths(data);
-    return previous;
+    updateDimensions();
+  }
+
+  /**
+   * Set all the items in data to be a given value
+   * @param value the value to set to all the items
+   */
+  public void setAll(E value) {
+    this.data = new ArrayList<List<E>>();
+    for (int r = 0; r < this.rows; r++) {
+      List<E> row = new ArrayList<E>();
+      for (int c = 0; c < this.cols; c++)
+        row.add(value);
+      this.data.add(row);
+    }
+  }
+
+  /**
+   * Sets all the items in data to null
+   */
+  public void clear() {
+    setAll(null);
   }
 
   /**
@@ -105,8 +126,7 @@ public class GridList<E> implements GridStorage<E> {
   public boolean contains(E target) {
     for (List<E> row : this.data)
       for (E item : row)
-        if (item.equals(target))
-          return true;
+        if (item.equals(target)) return true;
     return false;
   }
 
@@ -157,9 +177,17 @@ public class GridList<E> implements GridStorage<E> {
    * @exception IndexOutOfBoundsException when position is out of bounds
    */
   private void rangeCheck(int row, int col) {
-    if (row >= this.rows || col >= this.cols)
+    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols)
       throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
           + ", Rows: " + this.rows + ", Cols: " + this.cols);
+  }
+
+  /**
+   * Updates rows and cols to match the size of data
+   */
+  private void updateDimensions() {
+    this.rows = this.data.size();
+    this.cols = this.data.get(0).size();
   }
 
   /**

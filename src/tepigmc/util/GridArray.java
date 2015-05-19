@@ -15,6 +15,7 @@ public class GridArray<E> implements GridStorage<E> {
   public GridArray(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
+    clear();
   }
 
   /**
@@ -22,7 +23,6 @@ public class GridArray<E> implements GridStorage<E> {
    * @param data as an array
    */
   public GridArray(E[][] data) {
-    this(data.length, data[0].length);
     set(data);
   }
 
@@ -31,8 +31,15 @@ public class GridArray<E> implements GridStorage<E> {
    * @param data as a List
    */
   public GridArray(List<List<E>> data) {
-    this(data.size(), ListUtils.getWidth(data));
     set(data);
+  }
+
+  /**
+   * Creates a copy of the given GridStorage
+   * @param gridStorage the GridStorage to copy
+   */
+  public GridArray(GridStorage<E> gridStorage) {
+    set(gridStorage.toArray());
   }
 
   /**
@@ -66,35 +73,49 @@ public class GridArray<E> implements GridStorage<E> {
    * @param row the row position
    * @param col the column position
    * @param item the item to set to the given position
-   * @return the item that was previously at that position
    */
-  public E set(int row, int col, E item) {
+  public void set(int row, int col, E item) {
     rangeCheck(row, col);
-    E previous = this.data[row][col];
     this.data[row][col] = item;
-    return previous;
   }
 
   /**
    * Sets the data to the given data as an array
    * @param data the array to set to data
-   * @return the previous data
    */
-  public E[][] set(E[][] data) {
-    E[][] previous = this.data;
+  public void set(E[][] data) {
     this.data = data;
-    return previous;
+    updateDimensions();
   }
 
   /**
    * Sets the data to the given List
    * @param data the List to set to data
-   * @return the previous data
    */
-  public List<List<E>> set(List<List<E>> data) {
-    List<List<E>> previous = ArrayUtils.toList2D(this.data);
-    this.data = ListUtils.toArray2D(data);
-    return previous;
+  public void set(List<List<E>> data) {
+    set(ListUtils.toArray2D(data));
+  }
+
+  /**
+   * Set all the items in data to be a given value
+   * @param value the value to set to all the items
+   */
+  @SuppressWarnings("unchecked")
+  public void setAll(E value) {
+    int rows = this.rows, cols = this.cols;
+    this.data = (E[][]) new Object[rows][cols];
+    for (int r = 0; r < rows; r++) {
+      this.data[r] = (E[]) new Object[cols];
+      for (int c = 0; c < cols; c++)
+        this.data[r][c] = value;
+    }
+  }
+
+  /**
+   * Sets all the items in data to null
+   */
+  public void clear() {
+    setAll(null);
   }
 
   /**
@@ -105,8 +126,7 @@ public class GridArray<E> implements GridStorage<E> {
   public boolean contains(E target) {
     for (E[] row : this.data)
       for (E item : row)
-        if (item.equals(target))
-          return true;
+        if (item.equals(target)) return true;
     return false;
   }
 
@@ -135,18 +155,6 @@ public class GridArray<E> implements GridStorage<E> {
   }
 
   /**
-   * Throws error if position is out of bounds
-   * @param row the row position to verify
-   * @param col the column position to verify
-   * @exception IndexOutOfBoundsException when position is out of bounds
-   */
-  private void rangeCheck(int row, int col) {
-    if (row >= this.rows || col >= this.cols)
-      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
-          + ", Rows: " + this.rows + ", Cols: " + this.cols);
-  }
-
-  /**
    * Creates a String representation of this GridArray
    */
   public String toString() {
@@ -160,11 +168,32 @@ public class GridArray<E> implements GridStorage<E> {
    */
   public boolean equals(GridStorage<E> compare) {
     E[][] array = this.data, compareArray = compare.toArray();
-    for (int r = 0; r < array.length; r++)
-      for (int c = 0; c < array[0].length; c++)
-        if (array[r][c] != compareArray[r][c])
-          return false;
+    if (this.rows != compare.rows() || this.cols != compare.cols())
+      return false;
+    for (int r = 0; r < this.rows; r++)
+      for (int c = 0; c < this.cols; c++)
+        if (!array[r][c].equals(compareArray[r][c])) return false;
     return true;
+  }
+
+  /**
+   * Throws error if position is out of bounds
+   * @param row the row position to verify
+   * @param col the column position to verify
+   * @exception IndexOutOfBoundsException when position is out of bounds
+   */
+  private void rangeCheck(int row, int col) {
+    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols)
+      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
+          + ", Rows: " + this.rows + ", Cols: " + this.cols);
+  }
+
+  /**
+   * Updates rows and cols to match the size of data
+   */
+  private void updateDimensions() {
+    this.rows = this.data.length;
+    this.cols = this.data[0].length;
   }
 
   /**

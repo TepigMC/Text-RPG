@@ -34,7 +34,7 @@ public class ArrayUtils {
    * @param stringArray
    * @return
    */
-  public static char[][] toCharArray(String[] stringArray) {
+  public static char[][] toCharArray2D(String[] stringArray) {
     // Calculate the width of the longest string
     int width = 0;
     int height = stringArray.length;
