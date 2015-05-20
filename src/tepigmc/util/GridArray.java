@@ -8,17 +8,6 @@ public class GridArray<E> implements GridStorage<E> {
   private E[][] data;
 
   /**
-   * Constructs an empty GridArray with given size
-   * @param rows
-   * @param cols
-   */
-  public GridArray(int rows, int cols) {
-    this.rows = rows;
-    this.cols = cols;
-    clear();
-  }
-
-  /**
    * Constructs a GridArray with given data as an array
    * @param data as an array
    */
@@ -32,6 +21,26 @@ public class GridArray<E> implements GridStorage<E> {
    */
   public GridArray(List<List<E>> data) {
     set(data);
+  }
+
+  /**
+   * Constructs an empty GridArray with given size
+   * @param rows the amount of rows to create
+   * @param cols the amount of columns to create
+   */
+  public GridArray(int rows, int cols) {
+    this(rows, cols, null);
+  }
+
+  /**
+   * Constructs a GridList filed with the given item with given size
+   * @param rows the amount of rows to create
+   * @param cols the amount of columns to create
+   */
+  public GridArray(int rows, int cols, E item) {
+    this.rows = rows;
+    this.cols = cols;
+    setAll(item);
   }
 
   /**
@@ -100,15 +109,8 @@ public class GridArray<E> implements GridStorage<E> {
    * Set all the items in data to be a given value
    * @param value the value to set to all the items
    */
-  @SuppressWarnings("unchecked")
   public void setAll(E value) {
-    int rows = this.rows, cols = this.cols;
-    this.data = (E[][]) new Object[rows][cols];
-    for (int r = 0; r < rows; r++) {
-      this.data[r] = (E[]) new Object[cols];
-      for (int c = 0; c < cols; c++)
-        this.data[r][c] = value;
-    }
+    this.data = ArrayUtils.fill2D(this.rows, this.cols, value);
   }
 
   /**
@@ -116,18 +118,6 @@ public class GridArray<E> implements GridStorage<E> {
    */
   public void clear() {
     setAll(null);
-  }
-
-  /**
-   * Returns true if it contains target
-   * @param target the item to search for
-   * @return if this contains target
-   */
-  public boolean contains(E target) {
-    for (E[] row : this.data)
-      for (E item : row)
-        if (item.equals(target)) return true;
-    return false;
   }
 
   /**
@@ -162,18 +152,32 @@ public class GridArray<E> implements GridStorage<E> {
   }
 
   /**
+   * Returns the GridIndex where the target is found, null if not found
+   * @param target the item to search for
+   * @return the GridIndex where the target is located or null
+   */
+  public GridIndex indexOf(E target) {
+    return ArrayUtils.indexOf2D(this.data, target);
+  }
+  
+  /**
+   * Returns true if it contains target
+   * @param target the item to search for
+   * @return if this contains target
+   */
+  public boolean contains(E target) {
+    return indexOf(target) != null;
+  }
+
+  /**
    * Compares this with another GridStorage
    * @param compare the GridStorage to compare with
    * @return whether the GridStorage objects contain equal data
    */
   public boolean equals(GridStorage<E> compare) {
-    E[][] array = this.data, compareArray = compare.toArray();
-    if (this.rows != compare.rows() || this.cols != compare.cols())
-      return false;
-    for (int r = 0; r < this.rows; r++)
-      for (int c = 0; c < this.cols; c++)
-        if (!array[r][c].equals(compareArray[r][c])) return false;
-    return true;
+    if (compare == this)
+      return true;
+    return ArrayUtils.equals2D(this.data, compare.toArray());
   }
 
   /**
@@ -195,15 +199,4 @@ public class GridArray<E> implements GridStorage<E> {
     this.rows = this.data.length;
     this.cols = this.data[0].length;
   }
-
-  /**
-   * Allows this to be used in a foreach loop
-   * @return an Iterator object
-   */
-  /*
-   * public Iterator<Iterator<E>> iterator() { List<Iterator<E>> iterators = new
-   * ArrayList<Iterator<E>>(); for (E[] row : this.data) { List<E> rowList =
-   * ArrayUtils.toList(row); iterators.add(rowList.iterator()); } return
-   * iterators.iterator(); }
-   */
 }

@@ -40,13 +40,15 @@ public class ArrayUtils {
     int height = stringArray.length;
     for (String row : stringArray) {
       int length = row.length();
-      if (width < length) width = length;
+      if (width < length)
+        width = length;
     }
     // Convert the String array into a 2D char array
     char[][] charArray = new char[height][width];
     for (int i = 0; i < height; i++) {
       char[] row = stringArray[i].toCharArray();
-      if (row.length != width) row = Arrays.copyOf(row, width);
+      if (row.length != width)
+        row = Arrays.copyOf(row, width);
       charArray[i] = row;
     }
     return charArray;
@@ -84,36 +86,70 @@ public class ArrayUtils {
    * @param array the array to split
    * @return the sub array of included items
    */
-  public static <T> T[] subArray(T[] array, int startIndex)
-      throws IndexOutOfBoundsException, IllegalArgumentException {
+  public static <T> T[] subArray(T[] array, int startIndex) {
     return subArray(array, startIndex, array.length);
   }
 
   /**
    * Merges two arrays
-   * @param a the array to merge before b
-   * @param b the array to merge after a
+   * @param arrayA the array to merge before arrayB
+   * @param arrayB the array to merge after arrayA
    * @return the result of the merge
    */
-  public static <T> T[] merge(T[] a, T[] b) {
-    int lengthA = a.length, lengthB = b.length;
-    T[] result = Arrays.copyOf(a, lengthA + lengthB);
+  public static <T> T[] merge(T[] arrayA, T[] arrayB) {
+    int lengthA = arrayA.length, lengthB = arrayB.length;
+    T[] merged = Arrays.copyOf(arrayA, lengthA + lengthB);
     for (int i = 0; i < lengthB; i++) {
-      result[i + lengthA] = b[i];
+      merged[i + lengthA] = arrayB[i];
     }
-    return result;
+    return merged;
   }
-  
+
+  /**
+   * Creates a new array with all the elements set to the given value
+   * @param length the amount of items in the new array
+   * @param value the value to fill the new array with
+   * @return the filled array
+   */
+  public static <T> T[] fill(int length, T value) {
+    @SuppressWarnings("unchecked")
+    T[] array = (T[]) new Object[length];
+    for (int i = 0; i < length; i++)
+      array[i] = value;
+    return array;
+  }
+
+  /**
+   * Creates a new 2D array with all the elements set to the given value
+   * @param rows the amount of rows in the new 2D array
+   * @param cols the amount of columns in the new 2D array
+   * @param value the value to fill the new 2D array with
+   * @return the filled 2D array
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> T[][] fill2D(int rows, int cols, T value) {
+    T[][] array = (T[][]) new Object[rows][cols];
+    for (int r = 0; r < rows; r++) {
+      T[] row = (T[]) new Object[cols];
+      for (int c = 0; c < cols; c++)
+        row[c] = value;
+      array[r] = row;
+    }
+    return array;
+  }
+
   /**
    * Creates a String representation of the array
    * @param array to create the String from
    * @return the String representation of the array
    */
   public static <T> String toString(T[] array) {
-    if (array == null) return "null";
+    if (array == null)
+      return "null";
     String arrayString = "[";
-    for (int i = 0; i < array.length; i++)
-      arrayString += array[i] + (i < array.length - 1 ? ", " : "");
+    int length = array.length;
+    for (int i = 0; i < length; i++)
+      arrayString += array[i] + (i < length - 1 ? ", " : "");
     return arrayString + "]";
   }
 
@@ -123,45 +159,84 @@ public class ArrayUtils {
    * @return the String representation of the array
    */
   public static <T> String toString2D(T[][] array) {
-    if (array == null) return "null";
+    if (array == null)
+      return "null";
     String arrayString = "[";
-    for (int i = 0; i < array.length; i++)
-      arrayString += toString(array[i]) + (i < array.length - 1 ? ", " : "]");
+    int rows = array.length;
+    for (int r = 0; r < rows; r++)
+      arrayString += toString(array[r]) + (r < rows - 1 ? ", " : "]");
     return arrayString;
   }
 
   /**
+   * Returns the index where the target is found, -1 if not found
+   * @param target the item to search for
+   * @return the index where the target is located or -1
+   */
+  public static <T> int indexOf(T[] array, T target) {
+    for (int i = 0; i < array.length; i++) {
+      T item = array[i];
+      if (item == null ? target == null : item.equals(target))
+        return i;
+    }
+    return -1;
+  }
+
+  /**
+   * Returns the GridIndex where the target is found, null if not found
+   * @param target the item to search for
+   * @return the GridIndex where the target is located or null
+   */
+  public static <T> GridIndex indexOf2D(T[][] array, T target) {
+    for (int r = 0; r < array.length; r++)
+      for (int c = 0; c < array[0].length; c++) {
+        T item = array[r][c];
+        if (item == null ? target == null : item.equals(target))
+          return new GridIndex(r, c);
+      }
+    return null;
+  }
+
+  /**
    * Compares two arrays for equality
-   * @param a the array to compare to b
-   * @param b the array to compare to a
+   * @param arrayA the array to compare to arrayB
+   * @param arrayB the array to compare to arrayA
    * @return whether the two arrays are equal
    */
-  public static <T> boolean equals(T[] a, T[] b) {
-    if (a.length != b.length) { return false; }
-    for (int i = 0; i < a.length; i++)
-      if (!a[i].equals(b[i])) {
-        System.err.println("Array " + toString(a) + " differs from "
-            + toString(b) + ".");
+  public static <T> boolean equals(T[] arrayA, T[] arrayB) {
+    int length = arrayA.length;
+    if (length != arrayB.length)
+      return false;
+    for (int i = 0; i < length; i++) {
+      T a = arrayA[i], b = arrayB[i];
+      if (!(a == null ? b == null : a.equals(b))) {
+        System.err.println("Array " + toString(arrayA) + " differs from "
+            + toString(arrayB) + ".");
         return false;
       }
+    }
     return true;
   }
 
   /**
    * Compares two 2D arrays for equality
-   * @param a the 2D array to compare to b
-   * @param b the 2D array to compare to a
+   * @param arrayA the 2D array to compare to arrayB
+   * @param arrayB the 2D array to compare to arrayA
    * @return whether the two 2D arrays are equal
    */
-  public static <T> boolean equals2D(T[][] a, T[][] b) {
-    if (a.length != b.length || a[0].length != b[0].length) return false;
-    for (int i = 0; i < a.length; i++)
-      for (int j = 0; j < a[0].length; j++)
-        if (!a[i][j].equals(b[i][j])) {
-          System.err.println("Array " + toString(a) + " differs from "
-              + toString(b) + ".");
+  public static <T> boolean equals2D(T[][] arrayA, T[][] arrayB) {
+    int rows = arrayA.length, cols = arrayA[0].length;
+    if (rows != arrayB.length || cols != arrayB[0].length)
+      return false;
+    for (int r = 0; r < rows; r++)
+      for (int c = 0; c < cols; c++) {
+        T a = arrayA[r][c], b = arrayB[r][c];
+        if (!(a == null ? b == null : a.equals(b))) {
+          System.err.println("2D Array " + toString2D(arrayA)
+              + " differs from " + toString2D(arrayA) + ".");
           return false;
         }
+      }
     return true;
   }
 }

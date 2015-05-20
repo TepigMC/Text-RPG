@@ -1,23 +1,11 @@
 package tepigmc.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GridList<E> implements GridStorage<E> {
   private int rows;
   private int cols;
   private List<List<E>> data;
-
-  /**
-   * Constructs an empty GridList with given size
-   * @param rows
-   * @param cols
-   */
-  public GridList(int rows, int cols) {
-    this.rows = rows;
-    this.cols = cols;
-    setAll(null);
-  }
 
   /**
    * Constructs a GridList with given data as an array
@@ -33,6 +21,26 @@ public class GridList<E> implements GridStorage<E> {
    */
   public GridList(List<List<E>> data) {
     set(data);
+  }
+
+  /**
+   * Constructs an empty GridList with given size
+   * @param rows the amount of rows to create
+   * @param cols the amount of columns to create
+   */
+  public GridList(int rows, int cols) {
+    this(rows, cols, null);
+  }
+
+  /**
+   * Constructs a GridList filed with the given item with given size
+   * @param rows the amount of rows to create
+   * @param cols the amount of columns to create
+   */
+  public GridList(int rows, int cols, E item) {
+    this.rows = rows;
+    this.cols = cols;
+    setAll(item);
   }
 
   /**
@@ -102,13 +110,7 @@ public class GridList<E> implements GridStorage<E> {
    * @param value the value to set to all the items
    */
   public void setAll(E value) {
-    this.data = new ArrayList<List<E>>();
-    for (int r = 0; r < this.rows; r++) {
-      List<E> row = new ArrayList<E>();
-      for (int c = 0; c < this.cols; c++)
-        row.add(value);
-      this.data.add(row);
-    }
+    this.data = ListUtils.fill2D(this.rows, this.cols, value);
   }
 
   /**
@@ -116,18 +118,6 @@ public class GridList<E> implements GridStorage<E> {
    */
   public void clear() {
     setAll(null);
-  }
-
-  /**
-   * Returns true if it contains target
-   * @param target the item to search for
-   * @return if this contains target
-   */
-  public boolean contains(E target) {
-    for (List<E> row : this.data)
-      for (E item : row)
-        if (item.equals(target)) return true;
-    return false;
   }
 
   /**
@@ -162,11 +152,31 @@ public class GridList<E> implements GridStorage<E> {
   }
 
   /**
+   * Returns the GridIndex where the target is found, null if not found
+   * @param target the item to search for
+   * @return the GridIndex where the target is located or null
+   */
+  public GridIndex indexOf(E target) {
+    return ListUtils.indexOf(this.data, target);
+  }
+
+  /**
+   * Returns true if it contains target
+   * @param target the item to search for
+   * @return if this contains target
+   */
+  public boolean contains(E target) {
+    return indexOf(target) != null;
+  }
+
+  /**
    * Compares this with another GridStorage
    * @param compare the GridStorage to compare with
    * @return whether the GridStorage objects contain equal data
    */
   public boolean equals(GridStorage<E> compare) {
+    if (compare == this)
+      return true;
     return this.data.equals(compare.toList());
   }
 
@@ -186,17 +196,8 @@ public class GridList<E> implements GridStorage<E> {
    * Updates rows and cols to match the size of data
    */
   private void updateDimensions() {
+    ListUtils.fixWidths(this.data);
     this.rows = this.data.size();
     this.cols = this.data.get(0).size();
   }
-
-  /**
-   * Allows this to be used in a foreach loop
-   * @return an Iterator object
-   */
-  /*
-   * public Iterator<Iterator<E>> iterator() { List<Iterator<E>> iterators = new
-   * ArrayList<Iterator<E>>(); for (List<E> row : this.data)
-   * iterators.add(row.iterator()); return iterators.iterator(); }
-   */
 }

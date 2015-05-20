@@ -2,7 +2,7 @@ package tepigmc.util;
 
 import java.util.List;
 
-public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
+public interface GridStorage<E> {
   /**
    * Gets the number of rows
    * @return rows
@@ -57,13 +57,6 @@ public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
   public void clear();
 
   /**
-   * Returns true if it contains target
-   * @param target the item to search for
-   * @return if this contains target
-   */
-  public boolean contains(E target);
-
-  /**
    * Gets the data List converted to an array
    * @return data converted to an array
    */
@@ -76,15 +69,28 @@ public interface GridStorage<E> /* extends Iterable<Iterator<E>> */{
   public List<List<E>> toList();
 
   /**
+   * Creates a String representation of this GridStorage
+   */
+  public String toString();
+
+  /**
+   * Returns the GridIndex where the target is found, null if not found
+   * @param target the item to search for
+   * @return the GridIndex where the target is located or null
+   */
+  public GridIndex indexOf(E target);
+
+  /**
+   * Returns true if it contains target
+   * @param target the item to search for
+   * @return if this contains target
+   */
+  public boolean contains(E target);
+
+  /**
    * Compares this with another GridStorage
    * @param compare the GridStorage to compare with
    * @return whether the GridStorage objects contain equal data
    */
   public boolean equals(GridStorage<E> compare);
-
-  /**
-   * Allows this to be used in a foreach loop
-   * @return an Iterator object
-   */
-  // public Iterator<Iterator<E>> iterator();
 }
