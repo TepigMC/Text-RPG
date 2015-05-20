@@ -146,26 +146,34 @@ public class ArrayUtils {
   public static <T> String toString(T[] array) {
     if (array == null)
       return "null";
-    String arrayString = "[";
+    StringBuilder sb = new StringBuilder();
+    sb.append('[');
     int length = array.length;
-    for (int i = 0; i < length; i++)
-      arrayString += array[i] + (i < length - 1 ? ", " : "");
-    return arrayString + "]";
+    for (int i = 0; i < length; i++) {
+      sb.append(array[i]);
+      if (i < length - 1)
+        sb.append(", ");
+    }
+    return sb.append(']').toString();
   }
 
   /**
-   * Creates a String representation of the array
+   * Creates a String representation of the 2D array
    * @param array to create the String from
-   * @return the String representation of the array
+   * @return the String representation of the 2D array
    */
   public static <T> String toString2D(T[][] array) {
     if (array == null)
       return "null";
-    String arrayString = "[";
+    StringBuilder sb = new StringBuilder();
+    sb.append('[');
     int rows = array.length;
-    for (int r = 0; r < rows; r++)
-      arrayString += toString(array[r]) + (r < rows - 1 ? ", " : "]");
-    return arrayString;
+    for (int r = 0; r < rows; r++) {
+      sb.append(toString(array[r]));
+      if (r < rows - 1)
+        sb.append(", ");
+    }
+    return sb.append(']').toString();
   }
 
   /**
