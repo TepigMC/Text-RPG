@@ -3,6 +3,10 @@ package tepigmc.util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a collection of useful methods relating to List objects
+ * @author Andrew Archibald
+ */
 public class ListUtils {
   /**
    * Converts a List to an array

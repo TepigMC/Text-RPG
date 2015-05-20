@@ -2,6 +2,11 @@ package tepigmc.util;
 
 import java.util.List;
 
+/**
+ * This stores items in a 2D grid similar to a 2D array
+ * @author Andrew Archibald
+ * @param <E> the class of the item stored in the grid
+ */
 public interface GridStorage<E> {
   /**
    * Gets the number of rows

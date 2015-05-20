@@ -1,5 +1,9 @@
 package tepigmc.util;
 
+/**
+ * This is a row, column position in a grid
+ * @author Andrew Archibald
+ */
 public final class GridIndex {
   private int row;
   private int col;

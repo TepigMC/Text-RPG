@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is a collection of useful methods relating to arrays
+ * @author Andrew Archibald
+ */
 public class ArrayUtils {
   /**
    * Converts a List to an array
