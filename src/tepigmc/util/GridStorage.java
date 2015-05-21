@@ -97,5 +97,5 @@ public interface GridStorage<E> {
    * @param compare the GridStorage to compare with
    * @return whether the GridStorage objects contain equal data
    */
-  public boolean equals(GridStorage<E> compare);
+  public boolean equals(Object compare);
 }

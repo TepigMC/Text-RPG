@@ -1,6 +1,6 @@
 package tepigmc.textrpg.world.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,21 +24,21 @@ public class RoomGeneratorTest {
   public void testEmpty() {
     RoomTemplate roomTemplate = new RoomTemplate(2, 3);
     RoomGenerator.empty(roomTemplate);
-    GridStorage<Character> layout = new GridArray<Character>(new Character[][] {
-        {' ', ' ', ' '}, {' ', ' ', ' '}});
+    GridStorage<Character> layout = new GridArray<Character>(new Character[][] { { ' ', ' ', ' ' },
+        { ' ', ' ', ' ' } });
     assertEquals(layout, roomTemplate.getTemplate());
+    assertArrayEquals(layout.toArray(), roomTemplate.getTemplate().toArray());
   }
 
   @Test
   public void testBorder() {
-    RoomTemplate roomTemplate = new RoomTemplate(5, 7);
+    RoomTemplate roomTemplate = new RoomTemplate(7, 5);
     RoomGenerator.empty(roomTemplate);
     RoomGenerator.border(roomTemplate);
     GridStorage<Character> layout = new GridArray<Character>(new Character[][] {
-        {'x', 'x', 'x', 'x', 'x'}, {'x', ' ', ' ', ' ', 'x'},
-        {'x', ' ', ' ', ' ', 'x'}, {'x', ' ', ' ', ' ', 'x'},
-        {'x', ' ', ' ', ' ', 'x'}, {'x', ' ', ' ', ' ', 'x'},
-        {'x', 'x', 'x', 'x', 'x'}});
+        { 'x', 'x', 'x', 'x', 'x' }, { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
+        { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
+        { 'x', 'x', 'x', 'x', 'x' } });
     assertEquals(layout, roomTemplate.getTemplate());
   }
 }

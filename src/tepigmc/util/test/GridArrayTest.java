@@ -19,6 +19,14 @@ public class GridArrayTest {
 
   @Test
   public void testEquals() {
-    assertTrue(new GridArray<String>(1, 2).equals(new GridArray<String>(1, 2)));
+    assertTrue(new GridArray<Integer>(new Integer[][] { { 1, 2, 3 }, { 4, 5, 6 } })
+        .equals(new GridArray<Integer>(new Integer[][] { { 1, 2, 3 }, { 4, 5, 6 } })));
+    assertTrue(new GridArray<Character>(new Character[][] { { '1', '2', '3' }, { '4', '5', '6' } })
+        .equals(new GridArray<Character>(new Character[][] { { '1', '2', '3' }, { '4', '5', '6' } })));
+  }
+
+  @Test
+  public void testEquals_Empty() {
+    assertTrue(new GridArray<Integer>(1, 2).equals(new GridArray<Integer>(1, 2)));
   }
 }

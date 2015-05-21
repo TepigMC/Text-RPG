@@ -175,14 +175,19 @@ public class GridList<E> implements GridStorage<E> {
   }
 
   /**
-   * Compares this with another GridStorage
-   * @param compare the GridStorage to compare with
-   * @return whether the GridStorage objects contain equal data
+   * Compares this with another Object
+   * @param compare the Object to compare with
+   * @return whether the Object objects are equal
    */
-  public boolean equals(GridStorage<E> compare) {
+  public boolean equals(Object compare) {
     if (compare == this)
       return true;
-    return this.data.equals(compare.toList());
+    if (compare instanceof GridStorage) {
+      @SuppressWarnings("unchecked")
+      GridStorage<E> item = (GridStorage<E>) compare;
+      return this.data.equals(item.toList());
+    }
+    return false;
   }
 
   /**

@@ -33,4 +33,19 @@ public final class GridIndex {
   public int col() {
     return this.col;
   }
+
+  /**
+   * Compares this with another Object
+   * @param compare the Object to compare with
+   * @return whether the Object objects are equal
+   */
+  public boolean equals(Object compare) {
+    if (compare == this)
+      return true;
+    if (compare instanceof GridIndex) {
+      GridIndex item = (GridIndex) compare;
+      return this.row == item.row() && this.col == item.col();
+    }
+    return false;
+  }
 }
