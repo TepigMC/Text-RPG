@@ -7,7 +7,7 @@ import java.util.List;
  * @author Andrew Archibald
  * @param <E> the class of the item stored in the grid
  */
-public interface GridStorage<E> {
+public interface Grid<E> {
   /**
    * Gets the number of rows
    * @return rows

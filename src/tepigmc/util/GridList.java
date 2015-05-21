@@ -7,7 +7,7 @@ import java.util.List;
  * @author Andrew Archibald
  * @param <E> the class of the item stored in the grid
  */
-public class GridList<E> implements GridStorage<E> {
+public class GridList<E> implements Grid<E> {
   private int rows;
   private int cols;
   private List<List<E>> data;
@@ -49,10 +49,10 @@ public class GridList<E> implements GridStorage<E> {
   }
 
   /**
-   * Creates a copy of the given GridStorage
-   * @param gridStorage the GridStorage to copy
+   * Creates a copy of the given Grid
+   * @param gridStorage the Grid to copy
    */
-  public GridList(GridStorage<E> gridStorage) {
+  public GridList(Grid<E> gridStorage) {
     set(gridStorage.toList());
   }
 
@@ -182,9 +182,9 @@ public class GridList<E> implements GridStorage<E> {
   public boolean equals(Object compare) {
     if (compare == this)
       return true;
-    if (compare instanceof GridStorage) {
+    if (compare instanceof Grid) {
       @SuppressWarnings("unchecked")
-      GridStorage<E> item = (GridStorage<E>) compare;
+      Grid<E> item = (Grid<E>) compare;
       return this.data.equals(item.toList());
     }
     return false;
