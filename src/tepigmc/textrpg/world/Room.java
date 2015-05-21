@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tepigmc.textrpg.entity.Entity;
-import tepigmc.util.GridStorage;
+import tepigmc.util.Grid;
 
 public class Room {
   private static int nextId = 0;
 
-  private GridStorage<Tile> tiles;
+  private Grid<Tile> tiles;
   private List<Entity> entities;
   private int id;
 
   /**
-   * Constructs a Room with a Tile GridStorage and a List of Entity objects
-   * @param tiles a GridStorage of Tiles
+   * Constructs a Room with a Tile Grid and a List of Entity objects
+   * @param tiles a Grid of Tiles
    * @param entities a List of Entities
    */
-  public Room(GridStorage<Tile> tiles, List<Entity> entities) {
+  public Room(Grid<Tile> tiles, List<Entity> entities) {
     this.tiles = tiles;
     this.entities = entities;
     this.id = nextId;
@@ -26,10 +26,10 @@ public class Room {
   }
 
   /**
-   * Constructs a Room with a Tile GridStorage and no Entity objects
-   * @param tiles a GridStorage of Tiles
+   * Constructs a Room with a Tile Grid and no Entity objects
+   * @param tiles a Grid of Tiles
    */
-  public Room(GridStorage<Tile> tiles) {
+  public Room(Grid<Tile> tiles) {
     this(tiles, new ArrayList<Entity>());
   }
   
@@ -42,10 +42,10 @@ public class Room {
   }
 
   /**
-   * Gets the tiles GridStorage
+   * Gets the tiles Grid
    * @return tiles
    */
-  public GridStorage<Tile> getTiles() {
+  public Grid<Tile> getTiles() {
     return this.tiles;
   }
 
@@ -87,10 +87,10 @@ public class Room {
   /**
    * Renders the tiles and entities in the Room
    */
-  public char[][] render() {
+  public Grid<Tile> toGrid() {
     int rows = this.tiles.rows();
     for (int r = 0; r < rows; r++) {
-      // TODO cols
+      // TODO render Room
     }
     return null;
   }

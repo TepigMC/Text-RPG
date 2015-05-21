@@ -9,7 +9,7 @@ import org.junit.Test;
 import tepigmc.textrpg.world.RoomGenerator;
 import tepigmc.textrpg.world.RoomTemplate;
 import tepigmc.util.GridArray;
-import tepigmc.util.GridStorage;
+import tepigmc.util.Grid;
 
 public class RoomGeneratorTest {
   @Before
@@ -24,10 +24,10 @@ public class RoomGeneratorTest {
   public void testEmpty() {
     RoomTemplate roomTemplate = new RoomTemplate(2, 3);
     RoomGenerator.empty(roomTemplate);
-    GridStorage<Character> layout = new GridArray<Character>(new Character[][] { { ' ', ' ', ' ' },
+    Grid<Character> layout = new GridArray<Character>(new Character[][] { { ' ', ' ', ' ' },
         { ' ', ' ', ' ' } });
-    assertEquals(layout, roomTemplate.getTemplate());
-    assertArrayEquals(layout.toArray(), roomTemplate.getTemplate().toArray());
+    assertEquals(layout, roomTemplate.getGrid());
+    assertArrayEquals(layout.toArray(), roomTemplate.getGrid().toArray());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class RoomGeneratorTest {
     RoomTemplate roomTemplate = new RoomTemplate(7, 5);
     RoomGenerator.empty(roomTemplate);
     RoomGenerator.border(roomTemplate);
-    GridStorage<Character> layout = new GridArray<Character>(new Character[][] {
+    Grid<Character> layout = new GridArray<Character>(new Character[][] {
         { 'x', 'x', 'x', 'x', 'x' }, { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
         { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
         { 'x', 'x', 'x', 'x', 'x' } });
-    assertEquals(layout, roomTemplate.getTemplate());
+    assertEquals(layout, roomTemplate.getGrid());
   }
 }

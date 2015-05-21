@@ -5,7 +5,7 @@ public class TextRpgUI {
    * Creates a user interface for the game
    */
   public static void init() {
-    // TODO make gui here
+    // TODO create UI
     refresh();
   }
 
@@ -14,7 +14,7 @@ public class TextRpgUI {
    * EventManager fires
    */
   public static void refresh() {
-    // TODO
+    // TODO refresh UI
     System.out.println(TextRpg.renderCurrentRoom());
   }
 }

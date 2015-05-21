@@ -1,17 +1,17 @@
 package tepigmc.textrpg.world;
 
-import tepigmc.util.GridStorage;
+import tepigmc.util.Grid;
 
 public class RoomGenerator {
   /**
-   * Sets the layout in a RoomTemplate to be empty
+   * Sets the grid in a RoomTemplate to be empty
    * @param roomTemplate the RoomTemplate to empty
    * @return the modified RoomTemplate
    */
   public static RoomTemplate empty(RoomTemplate roomTemplate) {
-    GridStorage<Character> layout = roomTemplate.getTemplate();
+    Grid<Character> grid = roomTemplate.getGrid();
     char emptyChar = ' ';
-    layout.setAll(emptyChar);
+    grid.setAll(emptyChar);
     roomTemplate.put(emptyChar, Tiles.empty);
     return roomTemplate;
   }
@@ -22,8 +22,8 @@ public class RoomGenerator {
    * @return the modified RoomTemplate
    */
   public static RoomTemplate border(RoomTemplate roomTemplate) {
-    GridStorage<Character> layout = roomTemplate.getTemplate();
-    int rows = layout.rows(), cols = layout.cols();
+    Grid<Character> grid = roomTemplate.getGrid();
+    int rows = grid.rows(), cols = grid.cols();
     char wall = 'x';
     for (int r = 0; r < rows; r++) {
       if (r == 0 || r == rows - 1) {
