@@ -1,27 +1,68 @@
 package tepigmc.textrpg.world;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import tepigmc.textrpg.entity.Entity;
 import tepigmc.util.ArrayUtils;
 import tepigmc.util.Grid;
 import tepigmc.util.GridArray;
 import tepigmc.util.RandomUtils;
 
+/**
+ * A class used to create Room objects by using characters, then finalizing the
+ * Room layout
+ * @author Andrew Archibald
+ */
 public class RoomTemplate {
   private Grid<Character> grid;
   private Map<Character, Tile> tileMap;
+  private List<Entity> entities;
+
+  /**
+   * Creates a RoomTemplate object with a given size
+   * @param rows the amount of rows in the grid array
+   * @param cols the amount of columns in the grid array
+   */
+  public RoomTemplate(int rows, int cols) {
+    this(new GridArray<Character>(rows, cols), new HashMap<Character, Tile>(),
+        new ArrayList<Entity>());
+  }
+
+  /**
+   * Creates a RoomTemplate object with a given random size
+   * @param minRows the minimum amount of rows in the grid array
+   * @param minRows the maximum amount of rows in the grid array
+   * @param minCols the minimum amount of columns in the grid array
+   * @param maxCols the maximum amount of columns in the grid array
+   */
+  public RoomTemplate(int minRows, int maxRows, int minCols, int maxCols) {
+    this(RandomUtils.randInt(minRows, maxRows), RandomUtils.randInt(minCols, maxCols));
+  }
+
+  /**
+   * Creates a RoomTemplate object with entities
+   * @param grid the grid of the room in a Grid
+   * @param tileMap the corresponding Tile objects for each Character
+   * @param entities a List of entities
+   */
+  public RoomTemplate(Grid<Character> grid,
+      Map<Character, Tile> tileMap, List<Entity> entities) {
+    this.grid = grid;
+    this.tileMap = tileMap;
+    this.entities = entities;
+  }
 
   /**
    * Creates a RoomTemplate object
    * @param grid the grid of the room in a Grid
    * @param tileMap the corresponding Tile objects for each Character
    */
-  @Deprecated
   public RoomTemplate(Grid<Character> grid,
       Map<Character, Tile> tileMap) {
-    this.grid = grid;
-    this.tileMap = tileMap;
+    this(grid, tileMap, new ArrayList<Entity>());
   }
 
   /**
@@ -56,26 +97,6 @@ public class RoomTemplate {
   }
 
   /**
-   * Creates a RoomTemplate object with a given size
-   * @param rows the amount of rows in the grid array
-   * @param cols the amount of columns in the grid array
-   */
-  public RoomTemplate(int rows, int cols) {
-    this(new GridArray<Character>(rows, cols), new HashMap<Character, Tile>());
-  }
-
-  /**
-   * Creates a RoomTemplate object with a given random size
-   * @param minRows the minimum amount of rows in the grid array
-   * @param minRows the maximum amount of rows in the grid array
-   * @param minCols the minimum amount of columns in the grid array
-   * @param maxCols the maximum amount of columns in the grid array
-   */
-  public RoomTemplate(int minRows, int maxRows, int minCols, int maxCols) {
-    this(RandomUtils.randInt(minRows, maxRows), RandomUtils.randInt(minCols, maxCols));
-  }
-
-  /**
    * Creates a GridArray of Tile objects that can be used in a Room from the
    * grid and tileMap in this
    * @return a GridArray to be used in a Room
@@ -101,6 +122,14 @@ public class RoomTemplate {
     return this.tileMap;
   }
 
+  /**
+   * Gets the List of entities
+   * @return the entities
+   */
+  public List<Entity> getEntities() {
+    return this.entities;
+  }
+  
   /**
    * Set a char in the grid at a given position to the given key
    * @param row the row in the grid
@@ -133,8 +162,13 @@ public class RoomTemplate {
     int rows = grid.rows(), cols = grid.cols();
     Tile[][] tiles = new Tile[rows][cols];
     for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < cols; c++)
-        tiles[r][c] = tileMap.get(grid.get(r, c));
+      for (int c = 0; c < cols; c++) {
+        Character character = grid.get(r, c);
+        Tile tile = tileMap.get(character);
+        if (tile == null)
+          tile = Tiles.empty;
+        tiles[r][c] = tile;
+      }
     }
     return new GridArray<Tile>(tiles);
   }

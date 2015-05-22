@@ -1,41 +1,37 @@
 package tepigmc.textrpg.world;
 
-import tepigmc.util.Grid;
+/**
+ * An enum to store all the types of rooms and how to generate them
+ * @author Andrew Archibald
+ */
+public enum RoomGenerator {
+  HOUSE(() -> {
+    return RoomGenerate.border(new RoomTemplate(5, 10, 5, 10));
+  });
 
-public class RoomGenerator {
   /**
-   * Sets the grid in a RoomTemplate to be empty
-   * @param roomTemplate the RoomTemplate to empty
-   * @return the modified RoomTemplate
+   * An interface to use Java 8 lambda functions
+   * @author Andrew Archibald
    */
-  public static RoomTemplate empty(RoomTemplate roomTemplate) {
-    Grid<Character> grid = roomTemplate.getGrid();
-    char emptyChar = ' ';
-    grid.setAll(emptyChar);
-    roomTemplate.put(emptyChar, Tiles.empty);
-    return roomTemplate;
+  interface GeneratorService {
+    RoomTemplate createTemplate();
+  }
+
+  GeneratorService service;
+
+  /**
+   * Creates a RoomType with a lambda to create a RoomTemplate
+   * @param service a GeneratorService lambda that makes the RoomTemplate
+   */
+  RoomGenerator(GeneratorService service) {
+    this.service = service;
   }
 
   /**
-   * Adds a border around the RoomTemplate
-   * @param roomTemplate the RoomTemplate to modify
-   * @return the modified RoomTemplate
+   * Creates a RoomTemplate for this type of Room
+   * @return the generated RoomTemplate
    */
-  public static RoomTemplate border(RoomTemplate roomTemplate) {
-    Grid<Character> grid = roomTemplate.getGrid();
-    int rows = grid.rows(), cols = grid.cols();
-    char wall = 'x';
-    for (int r = 0; r < rows; r++) {
-      if (r == 0 || r == rows - 1) {
-        for (int c = 0; c < cols; c++)
-          roomTemplate.set(r, c, wall);
-      }
-      else {
-        roomTemplate.set(r, 0, wall);
-        roomTemplate.set(r, cols - 1, wall);
-      }
-    }
-    roomTemplate.put(wall, Tiles.wall);
-    return roomTemplate;
+  public RoomTemplate createTemplate() {
+    return service.createTemplate();
   }
 }
