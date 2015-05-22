@@ -36,9 +36,35 @@ public class ArrayUtils {
   }
 
   /**
+   * Converts a String array into a 2D Character array with even widths
+   * @param strings
+   * @return the resulting 2D Character array
+   */
+  public static Character[][] toCharacterArray2D(String[] strings) {
+    if (strings == null)
+      return new Character[0][0];
+    // Calculate the width of the longest string
+    int cols = 0;
+    for (String row : strings) {
+      int length = row.length();
+      if (cols < length)
+        cols = length;
+    }
+    // Convert the String array into a 2D char array
+    Character[][] characterArray = new Character[strings.length][cols];
+    for (int r = 0; r < strings.length; r++) {
+      Character[] characters = new Character[cols];
+      for (int c = 0; c < strings[r].length(); c++)
+        characters[c] = strings[r].charAt(c);
+      characterArray[r] = characters;
+    }
+    return characterArray;
+  }
+  
+  /**
    * Converts a String array into a 2D char array with even widths
    * @param strings
-   * @return
+   * @return the resulting 2D char array
    */
   public static char[][] toCharArray2D(String[] strings) {
     if (strings == null)

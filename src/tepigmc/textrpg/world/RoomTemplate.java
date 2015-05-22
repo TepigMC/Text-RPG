@@ -6,6 +6,7 @@ import java.util.Map;
 import tepigmc.util.ArrayUtils;
 import tepigmc.util.Grid;
 import tepigmc.util.GridArray;
+import tepigmc.util.RandomUtils;
 
 public class RoomTemplate {
   private Grid<Character> grid;
@@ -16,6 +17,7 @@ public class RoomTemplate {
    * @param grid the grid of the room in a Grid
    * @param tileMap the corresponding Tile objects for each Character
    */
+  @Deprecated
   public RoomTemplate(Grid<Character> grid,
       Map<Character, Tile> tileMap) {
     this.grid = grid;
@@ -27,6 +29,7 @@ public class RoomTemplate {
    * @param grid the grid of the room in a 2D Character array
    * @param tileMap the corresponding Tile objects for each Character
    */
+  @Deprecated
   public RoomTemplate(Character[][] grid, Map<Character, Tile> tileMap) {
     this(new GridArray<Character>(grid), tileMap);
   }
@@ -36,6 +39,7 @@ public class RoomTemplate {
    * @param grid the grid of the room in a 2D char array
    * @param tileMap the corresponding Tile objects for each Character
    */
+  @Deprecated
   public RoomTemplate(char[][] grid, Map<Character, Tile> tileMap) {
     this(new GridArray<Character>(charToCharacter(grid)), tileMap);
   }
@@ -46,6 +50,7 @@ public class RoomTemplate {
    * @param tileMap the corresponding Tile objects for each Character in the
    *          String array
    */
+  @Deprecated
   public RoomTemplate(String[] grid, Map<Character, Tile> tileMap) {
     this(ArrayUtils.toCharArray2D(grid), tileMap);
   }
@@ -57,6 +62,17 @@ public class RoomTemplate {
    */
   public RoomTemplate(int rows, int cols) {
     this(new GridArray<Character>(rows, cols), new HashMap<Character, Tile>());
+  }
+
+  /**
+   * Creates a RoomTemplate object with a given random size
+   * @param minRows the minimum amount of rows in the grid array
+   * @param minRows the maximum amount of rows in the grid array
+   * @param minCols the minimum amount of columns in the grid array
+   * @param maxCols the maximum amount of columns in the grid array
+   */
+  public RoomTemplate(int minRows, int maxRows, int minCols, int maxCols) {
+    this(RandomUtils.randInt(minRows, maxRows), RandomUtils.randInt(minCols, maxCols));
   }
 
   /**
@@ -114,7 +130,6 @@ public class RoomTemplate {
    */
   public static Grid<Tile> createTiles(Grid<Character> grid,
       Map<Character, Tile> tileMap) {
-    // Fill the array with tiles corresponding to the characters
     int rows = grid.rows(), cols = grid.cols();
     Tile[][] tiles = new Tile[rows][cols];
     for (int r = 0; r < rows; r++) {
@@ -126,32 +141,15 @@ public class RoomTemplate {
 
   /**
    * Creates a GridArray of Tile objects that can be used in a Room
-   * @param grid the grid of the room in a 2D char array
-   * @param tileMap the corresponding Tile objects for each Character
-   * @return a GridArray of Tile objects
-   */
-  public static Grid<Tile> createTiles(char[][] grid,
-      Map<Character, Tile> tileMap) {
-    // Fill the array with tiles corresponding to the characters
-    Tile[][] tiles = new Tile[grid.length][grid[0].length];
-    for (int r = 0; r < grid.length; r++) {
-      char[] row = grid[r];
-      for (int c = 0; c < row.length; c++)
-        tiles[r][c] = tileMap.get(row[c]);
-    }
-    return new GridArray<Tile>(tiles);
-  }
-
-  /**
-   * Creates a GridArray of Tile objects that can be used in a Room
    * @param grid the grid of the room in a String array
    * @param tileMap the corresponding Tile objects for each Character in the
    *          String array
    * @return a GridArray of Tile objects
    */
-  public static Grid<Tile> createTiles(String[] grid,
+  public static Grid<Tile> createTiles(String[] characters,
       Map<Character, Tile> tileMap) {
-    return createTiles(ArrayUtils.toCharArray2D(grid), tileMap);
+    return createTiles(
+        new GridArray<Character>(ArrayUtils.toCharacterArray2D(characters)), tileMap);
   }
 
   /**

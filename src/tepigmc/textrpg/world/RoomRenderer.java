@@ -130,11 +130,15 @@ public class RoomRenderer {
    * @return the converted Character Grid
    */
   public Grid<Character> tilesToIcons(Grid<Tile> tiles) {
+    if (tiles == null)
+      return new GridArray<Character>(0, 0);
     int rows = tiles.rows(), cols = tiles.cols();
     Grid<Character> icons = new GridArray<Character>(rows, cols);
     for (int r = 0; r < rows; r++)
-      for (int c = 0; c < cols; c++)
-        icons.set(r, c, tiles.get(r, c).getIcon());
+      for (int c = 0; c < cols; c++) {
+        Tile tile = tiles.get(r, c);
+        icons.set(r, c, (tile == null ? ' ' : tile.getIcon()));
+      }
     return icons;
   }
 
