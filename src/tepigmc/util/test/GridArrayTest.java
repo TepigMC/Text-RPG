@@ -26,7 +26,7 @@ public class GridArrayTest {
   }
 
   @Test
-  public void testEquals_Empty() {
+  public void testEquals_empty() {
     assertTrue(new GridArray<Integer>(1, 2).equals(new GridArray<Integer>(1, 2)));
   }
 }

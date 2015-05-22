@@ -95,7 +95,7 @@ public class ArrayUtilsTest {
   }
 
   @Test
-  public void testEquals_Integer() {
+  public void testEquals_integer() {
     Integer[] a = new Integer[] { 1, 2, 3 };
     Integer[] b = new Integer[] { 1, 2, 3 };
     assertTrue(ArrayUtils.equals(a, b));
@@ -103,7 +103,7 @@ public class ArrayUtilsTest {
   }
 
   @Test
-  public void testEquals_Character() {
+  public void testEquals_character() {
     Character[] a = new Character[] { '1', '2', '3' };
     Character[] b = new Character[] { '1', '2', '3' };
     assertTrue(ArrayUtils.equals(a, b));
@@ -111,7 +111,7 @@ public class ArrayUtilsTest {
   }
 
   @Test
-  public void testEquals2D_Integer() {
+  public void testEquals2D_integer() {
     Integer[][] a = new Integer[][] { { 1, 2, 3 }, { 4, 5, 6 } };
     Integer[][] b = new Integer[][] { { 1, 2, 3 }, { 4, 5, 6 } };
     assertTrue(ArrayUtils.equals2D(a, b));
@@ -119,7 +119,7 @@ public class ArrayUtilsTest {
   }
 
   @Test
-  public void testEquals2D_Character() {
+  public void testEquals2D_character() {
     Character[][] a = new Character[][] { { '1', '2', '3' }, { '4', '5', '6' } };
     Character[][] b = new Character[][] { { '1', '2', '3' }, { '4', '5', '6' } };
     assertTrue(ArrayUtils.equals2D(a, b));
