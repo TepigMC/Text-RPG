@@ -37,7 +37,7 @@ public class Tile {
    * Gets if the Tile is solid
    * @return isSolid
    */
-  public boolean getSolid() {
+  public boolean isSolid() {
     return this.isSolid;
   }
 
@@ -73,7 +73,7 @@ public class Tile {
    */
   public boolean equals(Tile compare) {
     return getId() == compare.getId() && getIcon() == compare.getIcon()
-        && getSolid() == compare.getSolid();
+        && isSolid() == compare.isSolid();
   }
 
   /**

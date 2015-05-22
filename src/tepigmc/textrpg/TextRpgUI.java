@@ -20,5 +20,6 @@ public class TextRpgUI {
   public void refresh() {
     // TODO refresh UI
     System.out.println(TextRpg.renderCurrentRoom());
+    System.out.println();
   }
 }

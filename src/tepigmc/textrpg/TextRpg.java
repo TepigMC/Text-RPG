@@ -27,6 +27,12 @@ public class TextRpg {
     world.addRoom(new Room(RoomGenerator.HOUSE));
     ui = new TextRpgUI();
     ui.init();
+    try {
+      player.moveRelative(new Coordinates(-1, 1));
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
