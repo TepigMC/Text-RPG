@@ -6,7 +6,7 @@ package tepigmc.textrpg.world;
  */
 public enum RoomGenerator {
   HOUSE(() -> {
-    return RoomGenerate.border(new RoomTemplate(5, 10, 5, 10));
+    return RoomGeneration.border(new RoomTemplate(5, 10, 5, 10));
   });
 
   /**

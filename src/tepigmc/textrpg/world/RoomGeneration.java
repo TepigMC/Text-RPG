@@ -2,7 +2,7 @@ package tepigmc.textrpg.world;
 
 import tepigmc.util.Grid;
 
-public class RoomGenerate {
+public class RoomGeneration {
   /**
    * Sets the grid in a RoomTemplate to be empty
    * @param roomTemplate the RoomTemplate to empty

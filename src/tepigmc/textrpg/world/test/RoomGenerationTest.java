@@ -1,17 +1,18 @@
 package tepigmc.textrpg.world.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import tepigmc.textrpg.world.RoomGenerate;
+import tepigmc.textrpg.world.RoomGeneration;
 import tepigmc.textrpg.world.RoomTemplate;
 import tepigmc.util.Grid;
 import tepigmc.util.GridArray;
 
-public class RoomGenerateTest {
+public class RoomGenerationTest {
   @Before
   public void setUp() throws Exception {
   }
@@ -23,7 +24,7 @@ public class RoomGenerateTest {
   @Test
   public void testEmpty() {
     RoomTemplate roomTemplate = new RoomTemplate(2, 3);
-    RoomGenerate.empty(roomTemplate);
+    RoomGeneration.empty(roomTemplate);
     Grid<Character> layout = new GridArray<Character>(new Character[][] {
         { ' ', ' ', ' ' }, { ' ', ' ', ' ' } });
     assertEquals(layout, roomTemplate.getGrid());
@@ -33,7 +34,7 @@ public class RoomGenerateTest {
   @Test
   public void testBorder() {
     RoomTemplate roomTemplate = new RoomTemplate(7, 5);
-    RoomGenerate.border(roomTemplate);
+    RoomGeneration.border(roomTemplate);
     Grid<Character> layout = new GridArray<Character>(new Character[][] {
         { 'x', 'x', 'x', 'x', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
         { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
