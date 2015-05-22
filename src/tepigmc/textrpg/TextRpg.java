@@ -9,22 +9,24 @@ import tepigmc.textrpg.world.World;
 public class TextRpg {
   public static Player player;
   public static World world;
+  public static TextRpgUI ui;
   public static int currentRoomId = 0;
 
   public static void main(String[] args) {
     setup();
-    while (true)
-      loop();
+    // while (true)
+    loop();
   }
 
   /**
    * This is called once when the TextRpg starts
    */
   private static void setup() {
-    player = new Player(new Coordinates(0, 0), '\u263A');
+    player = new Player(new Coordinates(2, 2), 'P'); // '\u263A'
     world = new World();
     world.addRoom(new Room(RoomGenerator.HOUSE));
-    TextRpgUI.init();
+    ui = new TextRpgUI();
+    ui.init();
   }
 
   /**

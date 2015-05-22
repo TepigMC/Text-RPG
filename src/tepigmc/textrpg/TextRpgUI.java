@@ -1,10 +1,14 @@
 package tepigmc.textrpg;
 
 public class TextRpgUI {
+  public TextRpgUI() {
+    
+  }
+  
   /**
    * Creates a user interface for the game
    */
-  public static void init() {
+  public void init() {
     // TODO create UI
     refresh();
   }
@@ -13,7 +17,7 @@ public class TextRpgUI {
    * Refreshes the data in the user interface; Called whenever an event in the
    * EventManager fires
    */
-  public static void refresh() {
+  public void refresh() {
     // TODO refresh UI
     System.out.println(TextRpg.renderCurrentRoom());
   }

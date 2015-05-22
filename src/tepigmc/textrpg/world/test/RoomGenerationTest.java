@@ -36,9 +36,9 @@ public class RoomGenerationTest {
     RoomTemplate roomTemplate = new RoomTemplate(7, 5);
     RoomGeneration.border(roomTemplate);
     Grid<Character> layout = new GridArray<Character>(new Character[][] {
-        { 'x', 'x', 'x', 'x', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
-        { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
-        { 'x', ' ', ' ', ' ', 'x' }, { 'x', ' ', ' ', ' ', 'x' },
+        { 'x', 'x', 'x', 'x', 'x' }, { 'x', null, null, null, 'x' },
+        { 'x', null, null, null, 'x' }, { 'x', null, null, null, 'x' },
+        { 'x', null, null, null, 'x' }, { 'x', null, null, null, 'x' },
         { 'x', 'x', 'x', 'x', 'x' } });
     assertEquals(layout, roomTemplate.getGrid());
   }
