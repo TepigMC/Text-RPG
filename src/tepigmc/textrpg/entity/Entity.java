@@ -131,7 +131,7 @@ public abstract class Entity {
    * @return whether the Entity can move to the given coordinates
    */
   public boolean canMoveCondition(Coordinates coordinates) {
-    return !TextRpg.currentRoom().getTile(coordinates.y(), coordinates.x()).isSolid();
+    return !TextRpg.currentRoom().getTile(coordinates).isSolid();
   }
 
   /**

@@ -15,7 +15,7 @@ public class TextRpg {
   public static void main(String[] args) {
     setup();
     // while (true)
-    loop();
+    // loop();
   }
 
   /**
@@ -27,20 +27,12 @@ public class TextRpg {
     world.addRoom(new Room(RoomGenerator.HOUSE));
     ui = new TextRpgUI();
     ui.init();
-    try {
-      player.moveRelative(new Coordinates(-1, 1));
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   /**
    * This is repeated infinitely after the setup completes
    */
-  private static void loop() {
-
-  }
+  // private static void loop() { }
 
   /**
    * Gets the Room the Player is currently in

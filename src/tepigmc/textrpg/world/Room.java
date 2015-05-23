@@ -67,18 +67,18 @@ public class Room {
    */
   public Tile getTile(Coordinates coordinates) {
     load();
-    return getTile(coordinates.x(), coordinates.y());
+    return getTile(coordinates.y(), coordinates.x());
   }
 
   /**
    * Gets the Tile at the given position
-   * @param x the horizontal position of the Tile
-   * @param y the vertical position of the Tile
+   * @param row the row to check
+   * @param col the column to check
    * @return the tile at the position
    */
-  public Tile getTile(int x, int y) {
+  public Tile getTile(int row, int col) {
     load();
-    return this.tiles.get(y, x);
+    return this.tiles.get(row, col);
   }
 
   /**
@@ -104,17 +104,17 @@ public class Room {
    * @return whether the Coordinates are in bounds
    */
   public boolean inBounds(Coordinates coordinates) {
-    return inBounds(coordinates.x(), coordinates.y());
+    return inBounds(coordinates.y(), coordinates.x());
   }
 
   /**
    * Checks if the position is in bounds
-   * @param x the horizontal coordinate to check
-   * @param y the vertical coordinate to check
+   * @param row the row to check
+   * @param col the column to check
    * @return whether the position is in bounds
    */
-  public boolean inBounds(int x, int y) {
-    return this.tiles.inBounds(y, x);
+  public boolean inBounds(int row, int col) {
+    return this.tiles.inBounds(row, col);
   }
 
   /**
