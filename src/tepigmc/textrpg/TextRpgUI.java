@@ -19,8 +19,7 @@ import tepigmc.textrpg.managers.EventManager;
 import tepigmc.textrpg.managers.TextManager;
 
 /**
- * The user interface for the Text RPG TODO
- * http://stackoverflow.com/questions/8281886/stretch-a-jlabel-text
+ * The user interface for the Text RPG
  * @author Andrew Archibald
  */
 public class TextRpgUI {
@@ -54,6 +53,11 @@ public class TextRpgUI {
     outputTextArea.setRequestFocusEnabled(false);
     outputTextArea.setWrapStyleWord(true);
     outputTextArea.setLineWrap(true);
+    // outputTextArea.update(outputTextArea.getGraphics());
+    // Updating; see http://stackoverflow.com/questions/629315/
+    Thread thread = new Thread(() -> outputTextArea.validate());
+    thread.start();
+    // Scrolling to bottom as text is added
     DefaultCaret caret = (DefaultCaret) outputTextArea.getCaret();
     caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
@@ -99,6 +103,8 @@ public class TextRpgUI {
    */
   public void setRoom(String roomText) {
     roomTextArea.setText(roomText);
+    System.out.println(roomText);
+    System.out.println();
   }
 
   /**
@@ -132,9 +138,6 @@ public class TextRpgUI {
    * Creates a user interface for the game
    */
   public void init() {
-    // TODO create UI
-
-    // TODO create better text management
     refresh();
     TextManager.addMessage("Text RPG says \"Hello World\"\n");
     TextManager.addMessage("\n\n\n\n\nPlayer says \"Hello\" to the world");
@@ -147,9 +150,6 @@ public class TextRpgUI {
    * EventManager fires
    */
   public void refresh() {
-    String roomText = TextRpg.renderCurrentRoom();
-    setRoom(roomText);
-    System.out.println(roomText);
-    System.out.println();
+    setRoom(TextRpg.renderCurrentRoom());
   }
 }
