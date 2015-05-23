@@ -5,16 +5,15 @@ package tepigmc.textrpg.world;
  * @author Andrew Archibald
  */
 public enum RoomGenerator {
-  HOUSE(() -> {
-    return RoomGeneration.border(new RoomTemplate(5, 10, 5, 10));
-  });
+  HOUSE(() -> RoomGeneration.border(new RoomTemplate(5, 10, 5, 10)));
 
   /**
    * An interface to use Java 8 lambda functions
    * @author Andrew Archibald
    */
-  interface GeneratorService {
-    RoomTemplate createTemplate();
+  @FunctionalInterface
+  public interface GeneratorService {
+    public abstract RoomTemplate createTemplate();
   }
 
   GeneratorService service;

@@ -22,7 +22,7 @@ public class TextRpg {
    * This is called once when the TextRpg starts
    */
   private static void setup() {
-    player = new Player(new Coordinates(2, 2), 'P'); // '\u263A'
+    player = new Player(new Coordinates(2, 2), '\u263A');
     world = new World();
     world.addRoom(new Room(RoomGenerator.HOUSE));
     ui = new TextRpgUI();
