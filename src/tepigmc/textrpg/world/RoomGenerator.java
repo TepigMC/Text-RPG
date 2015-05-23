@@ -8,8 +8,8 @@ import tepigmc.textrpg.entity.NonPlayerCharacter;
  */
 public enum RoomGenerator {
   HOUSE(() -> RoomGeneration.addEntityRandom(
-      RoomGeneration.border(new RoomTemplate(5, 10, 5, 10)), new NonPlayerCharacter('N'),
-      15));
+      RoomGeneration.addDoor(RoomGeneration.border(new RoomTemplate(5, 10, 5, 10))),
+      new NonPlayerCharacter('N'), 15));
 
   GeneratorService service;
 
