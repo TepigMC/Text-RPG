@@ -1,14 +1,17 @@
 package tepigmc.textrpg.entity;
 
 import tepigmc.textrpg.TextRpg;
-import tepigmc.textrpg.event.EventManager;
+import tepigmc.textrpg.managers.EventManager;
 import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Direction;
+import tepigmc.textrpg.world.Door;
 import tepigmc.textrpg.world.Room;
+import tepigmc.textrpg.world.Tile;
 
 public abstract class Entity {
   private Coordinates coordinates;
   private char icon;
+  private boolean canChangeRooms;
 
   /**
    * Creates an Entity with given coordinates and icon
@@ -103,6 +106,14 @@ public abstract class Entity {
   }
 
   /**
+   * Gets whether this Entity can change rooms
+   * @return if this Entity can change rooms
+   */
+  public boolean canChangeRooms() {
+    return this.canChangeRooms;
+  }
+
+  /**
    * Sets the position of the entity to the given Coordinates
    * @param the coordinates to set
    * @return the previous value for coordinates
@@ -117,11 +128,22 @@ public abstract class Entity {
 
   /**
    * Sets the char used in rendering this Entity
-   * @return the icon
+   * @return the previous value for icon
    */
   public char setIcon(char icon) {
     char previous = this.icon;
     this.icon = icon;
+    return previous;
+  }
+
+  /**
+   * Sets whether the entity can change rooms to the given value
+   * @param canChangeRooms the value to set to canChangeRooms
+   * @return the previous value for canChangeRooms
+   */
+  public boolean setCanChangeRooms(boolean canChangeRooms) {
+    boolean previous = this.canChangeRooms;
+    this.canChangeRooms = canChangeRooms;
     return previous;
   }
 
@@ -131,7 +153,10 @@ public abstract class Entity {
    * @return whether the Entity can move to the given coordinates
    */
   public boolean canMoveCondition(Coordinates coordinates) {
-    return !TextRpg.currentRoom().getTile(coordinates).isSolid();
+    Tile tile = TextRpg.currentRoom().getTile(coordinates);
+    if (tile instanceof Door && !this.canChangeRooms)
+      return false;
+    return !tile.isSolid();
   }
 
   /**

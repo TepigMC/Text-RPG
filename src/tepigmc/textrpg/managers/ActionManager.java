@@ -1,4 +1,4 @@
-package tepigmc.textrpg.event;
+package tepigmc.textrpg.managers;
 
 public class ActionManager {
   public static boolean canMoveUp = true;

@@ -12,7 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import tepigmc.textrpg.event.EventManager;
+import tepigmc.textrpg.managers.EventManager;
+import tepigmc.textrpg.managers.TextManager;
 
 /**
  * The user interface for the Text RPG TODO
@@ -24,6 +25,7 @@ public class TextRpgUI {
   private JTextArea roomTextArea;
   private JTextArea outputTextArea;
   private JTextField inputTextField;
+  private boolean isTyping = false;
 
   public TextRpgUI() {
     frame = new JFrame("Text RPG");
@@ -69,7 +71,8 @@ public class TextRpgUI {
 
     frame.pack();
     frame.setLocationRelativeTo(null);
-    frame.setIconImage(new ImageIcon(getClass().getResource("resources/icon.png")).getImage());
+    frame.setIconImage(new ImageIcon(getClass().getResource("resources/icon.png"))
+        .getImage());
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.setVisible(true);
   }
@@ -83,16 +86,30 @@ public class TextRpgUI {
   }
 
   /**
-   * Appends a String to the output
-   * @param text the text to append
+   * Displays the next message in the output
+   * @param message the text to display
    */
-  public void appendText(String text) {
-    for (int i = 0; i < text.length(); i++) {
-      outputTextArea.append(text.substring(i, i + 1));
-      TextRpg.sleep(25);
-    }
+  public void displayMessage() {
+    if (!this.isTyping && TextManager.hasNextMessage())
+      typeMessage(TextManager.nextMessage());
+  }
+
+  /**
+   * Displays a message in the output
+   * @param message the text to display
+   */
+  private void typeMessage(String message) {
+    System.out.println("typing");
+    this.isTyping = true;
+    if (message != null)
+      for (int i = 0; i < message.length(); i++) {
+        outputTextArea.append(message.substring(i, i + 1));
+        TextRpg.sleep(25);
+      }
     outputTextArea.append("\n");
     TextRpg.sleep(500);
+    this.isTyping = false;
+    displayMessage();
   }
 
   /**
@@ -101,12 +118,12 @@ public class TextRpgUI {
   public void init() {
     // TODO create UI
 
-    // TODO create text management
+    // TODO create better text management
     refresh();
-    appendText("Text RPG says \"Hello World\"\n");
-    appendText("\n\n\n\n\nPlayer says \"Hello\" to the world");
-    appendText("\n\n\n\n\nThe world says \"Hello\" to you");
-    appendText("\n\n\n\n\nBye!");
+    TextManager.addMessage("Text RPG says \"Hello World\"\n");
+    TextManager.addMessage("\n\n\n\n\nPlayer says \"Hello\" to the world");
+    TextManager.addMessage("\n\n\n\n\nThe world says \"Hello\" to you");
+    TextManager.addMessage("\n\n\n\n\nBye!");
   }
 
   /**
