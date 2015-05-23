@@ -9,8 +9,11 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.text.DefaultCaret;
 
 import tepigmc.textrpg.managers.EventManager;
 import tepigmc.textrpg.managers.TextManager;
@@ -22,12 +25,20 @@ import tepigmc.textrpg.managers.TextManager;
  */
 public class TextRpgUI {
   private JFrame frame;
+  private JScrollPane outputScrollPane;
   private JTextArea roomTextArea;
   private JTextArea outputTextArea;
   private JTextField inputTextField;
   private boolean isTyping = false;
 
   public TextRpgUI() {
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    }
+    catch (Exception e1) {
+      e1.printStackTrace();
+    }
+
     frame = new JFrame("Text RPG");
 
     roomTextArea = new JTextArea(15, 15);
@@ -43,7 +54,12 @@ public class TextRpgUI {
     outputTextArea.setRequestFocusEnabled(false);
     outputTextArea.setWrapStyleWord(true);
     outputTextArea.setLineWrap(true);
-    frame.getContentPane().add(outputTextArea, BorderLayout.CENTER);
+    DefaultCaret caret = (DefaultCaret) outputTextArea.getCaret();
+    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+    outputScrollPane = new JScrollPane(outputTextArea);
+    outputScrollPane.setBorder(null);
+    frame.getContentPane().add(outputScrollPane, BorderLayout.CENTER);
 
     inputTextField = new JTextField();
     inputTextField.setColumns(10);
