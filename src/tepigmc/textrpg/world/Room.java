@@ -78,7 +78,7 @@ public class Room {
    */
   public Tile getTile(int x, int y) {
     load();
-    return this.tiles.get(x, y);
+    return this.tiles.get(y, x);
   }
 
   /**
@@ -96,6 +96,25 @@ public class Room {
    */
   public int getId() {
     return this.id;
+  }
+
+  /**
+   * Checks if the Coordinates are in bounds
+   * @param coordinates the coordinates to check
+   * @return whether the Coordinates are in bounds
+   */
+  public boolean inBounds(Coordinates coordinates) {
+    return inBounds(coordinates.x(), coordinates.y());
+  }
+
+  /**
+   * Checks if the position is in bounds
+   * @param x the horizontal coordinate to check
+   * @param y the vertical coordinate to check
+   * @return whether the position is in bounds
+   */
+  public boolean inBounds(int x, int y) {
+    return this.tiles.inBounds(y, x);
   }
 
   /**

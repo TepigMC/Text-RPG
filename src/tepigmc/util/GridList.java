@@ -175,6 +175,16 @@ public class GridList<E> implements Grid<E> {
   }
 
   /**
+   * Checks if the given position is in bounds
+   * @param row the row position to verify
+   * @param col the column position to verify
+   * @return whether the position is in bounds
+   */
+  public boolean inBounds(int row, int col) {
+    return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
+  }
+
+  /**
    * Compares this with another Object
    * @param compare the Object to compare with
    * @return whether the Object objects are equal
@@ -197,9 +207,9 @@ public class GridList<E> implements Grid<E> {
    * @exception IndexOutOfBoundsException when position is out of bounds
    */
   private void rangeCheck(int row, int col) {
-    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols)
-      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
-          + ", Rows: " + this.rows + ", Cols: " + this.cols);
+    if (!inBounds(row, col))
+      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col + ", Rows: "
+          + this.rows + ", Cols: " + this.cols);
   }
 
   /**

@@ -164,7 +164,7 @@ public class GridArray<E> implements Grid<E> {
   public GridIndex indexOf(E target) {
     return ArrayUtils.indexOf2D(this.data, target);
   }
-  
+
   /**
    * Returns true if it contains target
    * @param target the item to search for
@@ -172,6 +172,16 @@ public class GridArray<E> implements Grid<E> {
    */
   public boolean contains(E target) {
     return indexOf(target) != null;
+  }
+
+  /**
+   * Checks if the given position is in bounds
+   * @param row the row position to verify
+   * @param col the column position to verify
+   * @return whether the position is in bounds
+   */
+  public boolean inBounds(int row, int col) {
+    return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
   }
 
   /**
@@ -197,9 +207,9 @@ public class GridArray<E> implements Grid<E> {
    * @exception IndexOutOfBoundsException when position is out of bounds
    */
   private void rangeCheck(int row, int col) {
-    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols)
-      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col
-          + ", Rows: " + this.rows + ", Cols: " + this.cols);
+    if (!inBounds(row, col))
+      throw new IndexOutOfBoundsException("Row: " + row + ", Col: " + col + ", Rows: "
+          + this.rows + ", Cols: " + this.cols);
   }
 
   /**

@@ -2,6 +2,8 @@ package tepigmc.textrpg;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -9,9 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import tepigmc.textrpg.event.EventManager;
+
 /**
- * The user interface for the Text RPG
- * TODO http://stackoverflow.com/questions/8281886/stretch-a-jlabel-text
+ * The user interface for the Text RPG TODO
+ * http://stackoverflow.com/questions/8281886/stretch-a-jlabel-text
  * @author Andrew Archibald
  */
 public class TextRpgUI {
@@ -41,6 +45,20 @@ public class TextRpgUI {
     inputTextField = new JTextField();
     inputTextField.setColumns(10);
     frame.getContentPane().add(inputTextField, BorderLayout.SOUTH);
+
+    inputTextField.addKeyListener(new KeyAdapter() {
+      public void keyTyped(KeyEvent event) {
+        EventManager.keyTyped(event);
+      }
+
+      public void keyPressed(KeyEvent event) {
+        EventManager.keyPressed(event);
+      }
+
+      public void keyReleased(KeyEvent event) {
+        EventManager.keyReleased(event);
+      }
+    });
 
     frame.addWindowListener(new WindowAdapter() {
       public void windowOpened(WindowEvent e) {

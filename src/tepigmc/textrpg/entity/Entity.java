@@ -3,6 +3,7 @@ package tepigmc.textrpg.entity;
 import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.event.EventManager;
 import tepigmc.textrpg.world.Coordinates;
+import tepigmc.textrpg.world.Direction;
 import tepigmc.textrpg.world.Room;
 
 public abstract class Entity {
@@ -67,10 +68,30 @@ public abstract class Entity {
 
   /**
    * Gets the position of the entity relative to the given coordinates
+   * @param relativeCoordinates the relative coordinates
    * @return the coordinates
    */
   public Coordinates getCoordinatesRelative(Coordinates relativeCoordinates) {
     return this.coordinates.add(relativeCoordinates);
+  }
+
+  /**
+   * Gets the position of the entity relative to the given coordinates
+   * @param relativeCoordinates the direction
+   * @return the coordinates
+   */
+  public Coordinates getCoordinatesRelative(Direction direction) {
+    return this.coordinates.add(direction.getRelativeCoordinates());
+  }
+
+  /**
+   * Gets the position of the entity relative to the given coordinates
+   * @param relativeCoordinates the relative coordinates
+   * @param amount the amount in the direction
+   * @return the coordinates
+   */
+  public Coordinates getCoordinatesRelative(Direction direction, int amount) {
+    return this.coordinates.add(direction.getRelativeCoordinates(amount));
   }
 
   /**
@@ -105,22 +126,55 @@ public abstract class Entity {
   }
 
   /**
-   * Tests if the Entity can move to the given position
-   * @param coordinates the coordinates to test
-   * @return whether the Entity can move
+   * The condition that is evaluated whenever an Entity checks canMove
+   * @param coordinates the coordinates to check
+   * @return whether the Entity can move to the given coordinates
    */
-  public boolean canMove(Coordinates coordinates) {
-    Room room = TextRpg.currentRoom();
-    // TODO out of bounds error; add inBounds(row, col) to Grid
-    return !room.getTile(coordinates.y(), coordinates.x()).isSolid();
+  public boolean canMoveCondition(Coordinates coordinates) {
+    return !TextRpg.currentRoom().getTile(coordinates.y(), coordinates.x()).isSolid();
   }
 
   /**
-   * Tests if the Entity can move relative to the given position
+   * Tests if the Entity can move to the given position; Subclasses cannot
+   * Override this method
+   * @param coordinates the coordinates to test
+   * @return whether the Entity can move
+   */
+  public final boolean canMove(Coordinates coordinates) {
+    Room room = TextRpg.currentRoom();
+    if (!room.inBounds(coordinates))
+      return false;
+    return canMoveCondition(coordinates);
+  }
+
+  /**
+   * Tests if the Entity can move relative in the given direction; Subclasses
+   * cannot Override this method
    * @param coordinates the relative coordinates to test
    * @return whether the Entity can move
    */
-  public boolean canMoveRelative(Coordinates relativeCoordinates) {
+  public final boolean canMove(Direction direction) {
+    return canMoveRelative(direction.getRelativeCoordinates());
+  }
+
+  /**
+   * Tests if the Entity can move relative in the given direction by a given
+   * amount; Subclasses cannot Override this method
+   * @param coordinates the relative coordinates to test
+   * @param amount the distance in that direction
+   * @return whether the Entity can move
+   */
+  public final boolean canMove(Direction direction, int amount) {
+    return canMoveRelative(direction.getRelativeCoordinates(amount));
+  }
+
+  /**
+   * Tests if the Entity can move relative to the given position; Subclasses
+   * cannot Override this method
+   * @param coordinates the relative coordinates to test
+   * @return whether the Entity can move
+   */
+  public final boolean canMoveRelative(Coordinates relativeCoordinates) {
     return canMove(getCoordinatesRelative(relativeCoordinates));
   }
 
@@ -128,7 +182,7 @@ public abstract class Entity {
    * Moves this Entity to the coordinates; Subclasses cannot Override this
    * method
    * @param coordinates the coordinates to move to
-   * @throws Exception
+   * @throws Exception thrown if the Entity cannot move there
    */
   public final void move(Coordinates coordinates) throws Exception {
     if (!canMove(coordinates))
@@ -139,10 +193,19 @@ public abstract class Entity {
   }
 
   /**
+   * Moves this Entity to the direction; Subclasses cannot Override this method
+   * @param direction the direction to move in
+   * @throws Exception thrown if the Entity cannot move there
+   */
+  public final void move(Direction direction) throws Exception {
+    move(getCoordinatesRelative(direction));
+  }
+
+  /**
    * Moves this Entity to the relative coordinates; Subclasses cannot Override
    * this method
    * @param coordinates the coordinates to move relative to
-   * @throws Exception
+   * @throws Exception thrown if the Entity cannot move there
    */
   public final void moveRelative(Coordinates relativeCoordinates) throws Exception {
     move(getCoordinatesRelative(relativeCoordinates));

@@ -49,6 +49,15 @@ public class Coordinates {
   }
 
   /**
+   * Multiplies Coordinates with an integer
+   * @param the constant
+   * @return the calculated Coordinates
+   */
+  public Coordinates multiply(int amount) {
+    return new Coordinates(this.x * amount, this.y * amount);
+  }
+
+  /**
    * Compares this and another Coordinates and returns whether the Coordinates
    * objects are equal
    * @param compare the Coordinates to compare to

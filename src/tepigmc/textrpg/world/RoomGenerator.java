@@ -11,15 +11,6 @@ public enum RoomGenerator {
       RoomGeneration.border(new RoomTemplate(5, 10, 5, 10)), new NonPlayerCharacter('N'),
       15));
 
-  /**
-   * An interface to use Java 8 lambda functions
-   * @author Andrew Archibald
-   */
-  @FunctionalInterface
-  public interface GeneratorService {
-    public abstract RoomTemplate createTemplate();
-  }
-
   GeneratorService service;
 
   /**
@@ -28,6 +19,15 @@ public enum RoomGenerator {
    */
   RoomGenerator(GeneratorService service) {
     this.service = service;
+  }
+
+  /**
+   * An interface to use Java 8 lambda functions
+   * @author Andrew Archibald
+   */
+  @FunctionalInterface
+  public interface GeneratorService {
+    public abstract RoomTemplate createTemplate();
   }
 
   /**

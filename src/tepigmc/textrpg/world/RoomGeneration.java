@@ -50,7 +50,7 @@ public class RoomGeneration {
       int attempts) {
     for (int i = 0; i < attempts; i++) {
       Coordinates randomCoordinates = randomCoordinates(roomTemplate);
-      if (roomTemplate.getCharacter(randomCoordinates.x(), randomCoordinates.y()) == null) {
+      if (roomTemplate.getCharacter(randomCoordinates.y(), randomCoordinates.x()) == null) {
         entity.setCoordinates(randomCoordinates);
         roomTemplate.addEntity(entity);
         break;

@@ -91,6 +91,14 @@ public interface Grid<E> {
    * @return if this contains target
    */
   public boolean contains(E target);
+  
+  /**
+   * returns true if the position is in the bounds
+   * @param row the row position to check
+   * @param col the column position to check
+   * @return if the position is valid
+   */
+  public boolean inBounds(int row, int col);
 
   /**
    * Compares this with another GridStorage
