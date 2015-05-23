@@ -1,11 +1,15 @@
 package tepigmc.textrpg.world;
 
+import tepigmc.textrpg.entity.NonPlayerCharacter;
+
 /**
  * An enum to store all the types of rooms and how to generate them
  * @author Andrew Archibald
  */
 public enum RoomGenerator {
-  HOUSE(() -> RoomGeneration.border(new RoomTemplate(5, 10, 5, 10)));
+  HOUSE(() -> RoomGeneration.addEntityRandom(
+      RoomGeneration.border(new RoomTemplate(5, 10, 5, 10)), new NonPlayerCharacter('N'),
+      15));
 
   /**
    * An interface to use Java 8 lambda functions

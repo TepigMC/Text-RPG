@@ -57,4 +57,17 @@ public class TextRpg {
   public static String renderCurrentRoom() {
     return currentRoom().render(player);
   }
+
+  /**
+   * Sleeps for the given milliseconds
+   * @param milli the time to sleep
+   */
+  public static void sleep(int milli) {
+    try {
+      Thread.sleep(milli);
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

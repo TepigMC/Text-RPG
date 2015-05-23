@@ -15,31 +15,43 @@ public abstract class Entity {
    * @param icon the char used to display this Entity in the UI
    */
   public Entity(Coordinates coordinates, char icon) {
-    this.coordinates = coordinates;
+    setCoordinates(coordinates);
     this.icon = icon;
   }
 
   /**
+   * Creates an Entity with given icon
+   * @param icon the char used to display this Entity in the UI
+   */
+  public Entity(char icon) {
+    this(new Coordinates(-1, -1), icon);
+  }
+
+  /**
    * Creates an Entity with the same data as the given Entity
-   * @param x the Entity to copy
+   * @param entity the Entity to copy
    */
   public Entity(Entity entity) {
     this(entity.getCoordinates(), entity.getIcon());
   }
 
   /**
-   * Gets the horizontal position of the Entity
+   * Gets the horizontal position of the Entity, -1 if Coordinates are null
    * @return the x coordinate
    */
   public int getX() {
+    if (this.coordinates == null)
+      return -1;
     return this.coordinates.x();
   }
 
   /**
-   * Gets the vertical position of the Entity
+   * Gets the vertical position of the Entity, -1 if Coordinates are null
    * @return the y coordinate
    */
   public int getY() {
+    if (this.coordinates == null)
+      return -1;
     return this.coordinates.y();
   }
 
@@ -48,9 +60,11 @@ public abstract class Entity {
    * @return the coordinates
    */
   public Coordinates getCoordinates() {
+    if (this.coordinates == null)
+      return new Coordinates(-1, -1);
     return this.coordinates;
   }
-  
+
   /**
    * Gets the position of the entity relative to the given coordinates
    * @return the coordinates
@@ -65,6 +79,29 @@ public abstract class Entity {
    */
   public char getIcon() {
     return this.icon;
+  }
+
+  /**
+   * Sets the position of the entity to the given Coordinates
+   * @param the coordinates to set
+   * @return the previous value for coordinates
+   */
+  public Coordinates setCoordinates(Coordinates coordinates) {
+    Coordinates previous = this.coordinates;
+    if (coordinates == null)
+      coordinates = new Coordinates(-1, -1);
+    this.coordinates = coordinates;
+    return previous;
+  }
+
+  /**
+   * Sets the char used in rendering this Entity
+   * @return the icon
+   */
+  public char setIcon(char icon) {
+    char previous = this.icon;
+    this.icon = icon;
+    return previous;
   }
 
   /**
@@ -86,7 +123,7 @@ public abstract class Entity {
   public boolean canMoveRelative(Coordinates relativeCoordinates) {
     return canMove(getCoordinatesRelative(relativeCoordinates));
   }
-  
+
   /**
    * Moves this Entity to the coordinates; Subclasses cannot Override this
    * method
@@ -102,14 +139,15 @@ public abstract class Entity {
   }
 
   /**
-   * Moves this Entity to the relative coordinates; Subclasses cannot Override this method
+   * Moves this Entity to the relative coordinates; Subclasses cannot Override
+   * this method
    * @param coordinates the coordinates to move relative to
    * @throws Exception
    */
   public final void moveRelative(Coordinates relativeCoordinates) throws Exception {
     move(getCoordinatesRelative(relativeCoordinates));
   }
-  
+
   /**
    * Called whenever an Entity changes position
    * @param entity the Entity that moved

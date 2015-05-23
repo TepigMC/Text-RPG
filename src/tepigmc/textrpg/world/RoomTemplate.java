@@ -114,6 +114,18 @@ public class RoomTemplate {
   }
 
   /**
+   * Gets the Character at the position in the grid
+   * @param row the row position
+   * @param col the column position
+   * @return the Character at the position
+   */
+  public Character getCharacter(int row, int col) {
+    if (this.grid == null)
+      return null;
+    return this.grid.get(row, col);
+  }
+
+  /**
    * Gets the HashMap containing Tile objects that correspond to each Character
    * in the grid
    * @return the tileMap
@@ -129,7 +141,35 @@ public class RoomTemplate {
   public List<Entity> getEntities() {
     return this.entities;
   }
-  
+
+  /**
+   * Gets the height of the RoomTemplate
+   * @return the number of rows in the Grid
+   */
+  public int rows() {
+    return this.grid.rows();
+  }
+
+  /**
+   * Gets the width of the RoomTemplate
+   * @return the number of columns in the Grid
+   */
+  public int cols() {
+    return this.grid.cols();
+  }
+
+  /**
+   * Sets the grid to the given value
+   * @return the previous grid
+   */
+  public Grid<Character> setGrid(Grid<Character> grid) {
+    Grid<Character> previous = this.grid;
+    if (grid == null)
+      grid = new GridArray<Character>(0, 0);
+    this.grid = grid;
+    return previous;
+  }
+
   /**
    * Set a char in the grid at a given position to the given key
    * @param row the row in the grid
@@ -137,8 +177,12 @@ public class RoomTemplate {
    * @param key the char to be set in the grid
    * @return the previous item at that position
    */
-  public void set(int row, int col, char key) {
+  public Character set(int row, int col, Character key) {
+    Character previous = getCharacter(row, col);
+    if (this.grid == null)
+      this.grid = new GridArray<Character>(0, 0);
     this.grid.set(row, col, key);
+    return previous;
   }
 
   /**
@@ -149,6 +193,14 @@ public class RoomTemplate {
    */
   public Tile put(Character key, Tile value) {
     return this.tileMap.put(key, value);
+  }
+
+  /**
+   * Adds an Entity to the Entity List
+   * @param entity the Entity to add
+   */
+  public void addEntity(Entity entity) {
+    this.entities.add(entity);
   }
 
   /**

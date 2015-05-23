@@ -18,55 +18,53 @@ import javax.swing.JTextField;
 
 public class TextRpgUI {
   private JFrame frame;
-  private MapPane mapPane;
-  private JTextArea mapTextArea;
+  // private RoomPane roomPane;
+  private JTextArea roomTextArea;
   private JTextArea outputTextArea;
   private JTextField inputTextField;
 
   public TextRpgUI() {
     frame = new JFrame("Text RPG");
 
-    mapTextArea = new JTextArea();
-    mapTextArea.setRows(15);
-    mapTextArea.setColumns(15);
-    mapTextArea.setEditable(false);
-    mapTextArea.setFocusable(false);
-    mapTextArea.setRequestFocusEnabled(false);
-    mapTextArea.setFont(new Font("Courier New", Font.PLAIN, 14));
-    frame.getContentPane().add(mapTextArea, BorderLayout.EAST);
-    
-    mapPane = new MapPane("\u2588\u2588\u2588\u2588\u2588\n\u2588\u2588\u2588\u2588\u2588");
-    frame.getContentPane().add(mapPane, BorderLayout.WEST);
+    roomTextArea = new JTextArea(15, 15);
+    roomTextArea.setEditable(false);
+    roomTextArea.setFocusable(false);
+    roomTextArea.setRequestFocusEnabled(false);
+    roomTextArea.setFont(new Font("Courier New", Font.PLAIN, 14));
+    frame.getContentPane().add(roomTextArea, BorderLayout.WEST);
 
-    outputTextArea = new JTextArea();
-    outputTextArea.setRows(15);
-    outputTextArea.setColumns(30);
+    outputTextArea = new JTextArea(15, 50);
     outputTextArea.setEditable(false);
     outputTextArea.setFocusable(false);
     outputTextArea.setRequestFocusEnabled(false);
+    outputTextArea.setWrapStyleWord(true);
+    outputTextArea.setLineWrap(true);
     frame.getContentPane().add(outputTextArea, BorderLayout.CENTER);
+
+    // roomPane = new RoomPane("\u2588\u2588\u2588\n\u2588\u2588\u2588");
+    // frame.getContentPane().add(roomPane, BorderLayout.EAST);
 
     inputTextField = new JTextField();
     inputTextField.setColumns(10);
     frame.getContentPane().add(inputTextField, BorderLayout.SOUTH);
 
-    frame.addWindowListener(new WindowAdapter(){ 
-      public void windowOpened(WindowEvent e){ 
-        inputTextField.requestFocusInWindow(); //inputTextField.requestFocus();
-      } 
+    frame.addWindowListener(new WindowAdapter() {
+      public void windowOpened(WindowEvent e) {
+        inputTextField.requestFocusInWindow(); // inputTextField.requestFocus();
+      }
     });
-    
+
     frame.pack();
     frame.setVisible(true);
   }
 
   /**
-   * Sets the map text area to the given map
-   * @param map the map to display
+   * Sets the room text area to the given rendered room
+   * @param roomText the rendered room to display
    */
-  public void setMap(String map) {
-    mapTextArea.setText(map);
-    mapPane = new MapPane(map);
+  public void setRoom(String roomText) {
+    roomTextArea.setText(roomText);
+    // roomPane = new RoomPane(roomText);
   }
 
   /**
@@ -74,7 +72,12 @@ public class TextRpgUI {
    * @param text the text to append
    */
   public void appendText(String text) {
-    outputTextArea.append(text);
+    for (int i = 0; i < text.length(); i++) {
+      outputTextArea.append(text.substring(i, i + 1));
+      TextRpg.sleep(25);
+    }
+    outputTextArea.append("\n");
+    TextRpg.sleep(500);
   }
 
   /**
@@ -83,10 +86,12 @@ public class TextRpgUI {
   public void init() {
     // TODO create UI
 
-    // TODO create text management class
-    appendText("Text RPG says \"Hello World\"\n");
-
+    // TODO create text management
     refresh();
+    appendText("Text RPG says \"Hello World\"\n");
+    appendText("\n\n\n\n\nPlayer says \"Hello\" to the world");
+    appendText("\n\n\n\n\nThe world says \"Hello\" to you");
+    appendText("\n\n\n\n\nBye!");
   }
 
   /**
@@ -94,22 +99,23 @@ public class TextRpgUI {
    * EventManager fires
    */
   public void refresh() {
-    String map = TextRpg.renderCurrentRoom();
-    setMap(map);
-    System.out.println(map);
+    String roomText = TextRpg.renderCurrentRoom();
+    setRoom(roomText);
+    System.out.println(roomText);
     System.out.println();
   }
 
   /**
-   * An attempt to make the map text square
-   * @author http://stackoverflow.com/questions/14670805/how-to-stretch-text-horizontally-in-java
-   * TODO try http://stackoverflow.com/questions/8281886/stretch-a-jlabel-text
+   * An attempt to make the room text square
+   * @author http://stackoverflow.com/questions/14670805/how-to-stretch-text-
+   *         horizontally-in-java TODO try
+   *         http://stackoverflow.com/questions/8281886/stretch-a-jlabel-text
    */
-  public class MapPane extends JPanel {
+  public class RoomPane extends JPanel {
     private static final long serialVersionUID = 2970550539872323526L;
     private BufferedImage image;
 
-    public MapPane(String text) {
+    public RoomPane(String text) {
       Font font = new Font("Courier New", Font.PLAIN, 14);
       FontMetrics fontMetrics = getFontMetrics(font);
       int width = fontMetrics.stringWidth(text);

@@ -1,6 +1,8 @@
 package tepigmc.textrpg.world;
 
+import tepigmc.textrpg.entity.Entity;
 import tepigmc.util.Grid;
+import tepigmc.util.RandomUtils;
 
 public class RoomGeneration {
   /**
@@ -37,5 +39,28 @@ public class RoomGeneration {
     }
     roomTemplate.put(wall, Tiles.wall);
     return roomTemplate;
+  }
+
+  /**
+   * Adds an entity to the RoomTemplate at a random position
+   * @param roomTemplate the RoomTemplate to modify
+   * @return the modified RoomTemplate
+   */
+  public static RoomTemplate addEntityRandom(RoomTemplate roomTemplate, Entity entity,
+      int attempts) {
+    for (int i = 0; i < attempts; i++) {
+      Coordinates randomCoordinates = randomCoordinates(roomTemplate);
+      if (roomTemplate.getCharacter(randomCoordinates.x(), randomCoordinates.y()) == null) {
+        entity.setCoordinates(randomCoordinates);
+        roomTemplate.addEntity(entity);
+        break;
+      }
+    }
+    return roomTemplate;
+  }
+
+  private static Coordinates randomCoordinates(RoomTemplate roomTemplate) {
+    return new Coordinates(RandomUtils.randInt(0, roomTemplate.cols() - 1),
+        RandomUtils.randInt(0, roomTemplate.rows() - 1));
   }
 }
