@@ -27,7 +27,7 @@ public class EventManager {
 
   public static void keyPressed(KeyEvent event) {
     System.out.println("Key Pressed " + event.getKeyCode() + ", " + event.getKeyChar());
-    char key = event.getKeyChar();
+    int key = event.getKeyCode();
     try {
       if (key == KeyEvent.VK_UP && ActionManager.canMoveUp
           && TextRpg.player.canMove(Direction.UP))
@@ -41,9 +41,9 @@ public class EventManager {
       else if (key == KeyEvent.VK_LEFT && ActionManager.canMoveLeft
           && TextRpg.player.canMove(Direction.LEFT))
         TextRpg.player.move(Direction.LEFT);
-      // TODO find problem with not moving
     }
     catch (Exception e) {
+      System.err.println("Player cannot move there!");
       e.printStackTrace();
     }
   }

@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -67,6 +68,9 @@ public class TextRpgUI {
     });
 
     frame.pack();
+    frame.setLocationRelativeTo(null);
+    frame.setIconImage(new ImageIcon(getClass().getResource("resources/icon.png")).getImage());
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.setVisible(true);
   }
 
