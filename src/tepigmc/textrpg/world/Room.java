@@ -133,7 +133,10 @@ public class Room {
     return new RoomRenderer(this).render();
   }
 
-  public void load() {
+  /**
+   * Generates the Room if it is not generated
+   */
+  private void load() {
     if (!this.hasGenerated) {
       RoomTemplate roomTemplate = this.roomGenerator.createTemplate();
       this.tiles = roomTemplate.createTiles();

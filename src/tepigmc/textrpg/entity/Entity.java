@@ -14,13 +14,25 @@ public abstract class Entity {
   private boolean canChangeRooms;
 
   /**
+   * Creates an Entity with given coordinates, icon, and whether it can change
+   * rooms
+   * @param coordinates the position of the Entity
+   * @param icon the char used to display this Entity in the UI
+   * @param canChangeRooms whether this Entity can use doors
+   */
+  public Entity(Coordinates coordinates, char icon, boolean canChangeRooms) {
+    setCoordinates(coordinates);
+    this.icon = icon;
+    this.canChangeRooms = canChangeRooms;
+  }
+
+  /**
    * Creates an Entity with given coordinates and icon
    * @param coordinates the position of the Entity
    * @param icon the char used to display this Entity in the UI
    */
   public Entity(Coordinates coordinates, char icon) {
-    setCoordinates(coordinates);
-    this.icon = icon;
+    this(coordinates, icon, false);
   }
 
   /**
@@ -36,7 +48,7 @@ public abstract class Entity {
    * @param entity the Entity to copy
    */
   public Entity(Entity entity) {
-    this(entity.getCoordinates(), entity.getIcon());
+    this(entity.getCoordinates(), entity.getIcon(), entity.canChangeRooms());
   }
 
   /**

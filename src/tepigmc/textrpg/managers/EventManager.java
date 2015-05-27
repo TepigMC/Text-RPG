@@ -22,8 +22,7 @@ public class EventManager {
    * @param event the KeyEvent from the UI
    */
   public static void keyTyped(KeyEvent event) {
-    // System.out.println("Key Typed " + event.getKeyCode() + ", " +
-    // event.getKeyChar());
+
   }
 
   /**
@@ -32,8 +31,6 @@ public class EventManager {
    * @param event the KeyEvent from the UIs
    */
   public static void keyPressed(KeyEvent event) {
-    // System.out.println("Key Pressed " + event.getKeyCode() + ", " +
-    // event.getKeyChar());
     int key = event.getKeyCode();
     Direction direction = null;
     if ((key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP)
@@ -68,8 +65,6 @@ public class EventManager {
    * @param event the KeyEvent from the UI
    */
   public static void keyReleased(KeyEvent event) {
-    // System.out.println("Key Released " + event.getKeyCode() + ", " +
-    // event.getKeyChar());
     // TODO handle enter
   }
 

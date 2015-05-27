@@ -105,6 +105,8 @@ public class TextRpgUI {
     roomTextArea.setText(roomText);
     System.out.println(roomText);
     System.out.println();
+    TextRpg.out.println(roomText);
+    TextRpg.out.println();
   }
 
   /**

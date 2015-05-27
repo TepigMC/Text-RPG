@@ -1,5 +1,9 @@
 package tepigmc.textrpg;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+
 import tepigmc.textrpg.entity.Player;
 import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Room;
@@ -11,6 +15,9 @@ public class TextRpg {
   public static World world;
   public static TextRpgUI ui;
   public static int currentRoomId = 0;
+  // public static PrintStream out = new PrintStream(System.out, true, "UTF-8");
+  public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out,
+      StandardCharsets.UTF_16), true);
 
   public static void main(String[] args) {
     setup();
