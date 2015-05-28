@@ -1,9 +1,5 @@
 package tepigmc.textrpg;
 
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-
 import tepigmc.textrpg.entity.Player;
 import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Room;
@@ -15,20 +11,8 @@ public class TextRpg {
   public static World world;
   public static TextRpgUI ui;
   public static int currentRoomId = 0;
-  // public static PrintStream out = new PrintStream(System.out, true, "UTF-8");
-  public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out,
-      StandardCharsets.UTF_16), true);
 
   public static void main(String[] args) {
-    setup();
-    // while (true)
-    // loop();
-  }
-
-  /**
-   * This is called once when the TextRpg starts
-   */
-  private static void setup() {
     player = new Player(new Coordinates(2, 2), '\u263A');
     world = new World();
     world.addRoom(new Room(RoomGenerator.HOUSE));
@@ -37,16 +21,15 @@ public class TextRpg {
   }
 
   /**
-   * This is repeated infinitely after the setup completes
-   */
-  // private static void loop() { }
-
-  /**
    * Gets the Room the Player is currently in
    * @return the current Room
    */
   public static Room currentRoom() {
     return world.getRoom(currentRoomId);
+  }
+
+  public static void setCurrentRoom(int roomId) {
+    currentRoomId = roomId;
   }
 
   /**

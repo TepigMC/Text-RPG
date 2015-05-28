@@ -11,4 +11,13 @@ public class Player extends Entity {
   public Player(Coordinates coordinates, char icon) {
     super(coordinates, icon, true);
   }
+
+  /**
+   * Called whenever an Entity changes position
+   * @param entity the Entity that moved
+   */
+  @Override
+  public void onEntityMove(Entity entity) {
+    System.out.println("moved: " + entity);
+  }
 }

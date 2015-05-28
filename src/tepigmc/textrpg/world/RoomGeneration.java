@@ -50,7 +50,7 @@ public class RoomGeneration {
   public static RoomTemplate addDoor(RoomTemplate roomTemplate) {
     if (roomTemplate != null) {
       int rows = roomTemplate.rows(), cols = roomTemplate.cols();
-      roomTemplate.set(rows - 1, cols / 2, 'D');
+      roomTemplate.set(rows - 1, cols / 2 - 1, 'D');
       roomTemplate.put('D', new Door(RoomGenerator.HOUSE));
     }
     return roomTemplate;

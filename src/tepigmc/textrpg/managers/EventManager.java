@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.entity.Entity;
+import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Direction;
 
 public class EventManager {
@@ -13,6 +14,8 @@ public class EventManager {
    * @param entity the Entity that changed position
    */
   public static void onEntityMove(Entity entity) {
+    Coordinates coordinates = entity.getCoordinates();
+    TextRpg.currentRoom().getTile(coordinates).onEntityStep(entity);
     entityEvent(e -> e.onEntityMove(entity));
     TextRpg.ui.refresh();
   }

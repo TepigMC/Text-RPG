@@ -34,11 +34,11 @@ public class RoomTemplate {
   /**
    * Creates a RoomTemplate object with a given random size
    * @param minRows the minimum amount of rows in the grid array
-   * @param minRows the maximum amount of rows in the grid array
+   * @param maxRows the maximum amount of rows in the grid array
    * @param minCols the minimum amount of columns in the grid array
    * @param maxCols the maximum amount of columns in the grid array
    */
-  public RoomTemplate(int minRows, int maxRows, int minCols, int maxCols) {
+  public RoomTemplate(int minRows, int minCols, int maxRows, int maxCols) {
     this(RandomUtils.randInt(minRows, maxRows), RandomUtils.randInt(minCols, maxCols));
   }
 

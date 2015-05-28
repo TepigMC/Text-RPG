@@ -1,5 +1,7 @@
 package tepigmc.textrpg.world;
 
+import tepigmc.textrpg.entity.Entity;
+
 public class Tile {
   private String id;
   private char icon;
@@ -82,5 +84,13 @@ public class Tile {
   public String toString() {
     return "Tile(id: " + this.id + ", icon: " + this.icon + ", isSolid: "
         + this.isSolid + ")";
+  }
+
+  /**
+   * Called whenever an Entity steps onto this Tile
+   * @param entity the Entity that moved
+   */
+  public void onEntityStep(Entity entity) {
+
   }
 }
