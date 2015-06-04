@@ -44,6 +44,21 @@ public class RoomTemplate {
   }
 
   /**
+   * Creates a RoomTemplate object with entities and exits
+   * @param grid the grid of the room in a Grid
+   * @param tileMap the corresponding Tile objects for each Character
+   * @param entities a List of entities
+   * @param exits a List of exits
+   */
+  public RoomTemplate(Grid<Character> grid,
+      Map<Character, Tile> tileMap, List<Entity> entities, List<Exit> exits) {
+    this.grid = grid;
+    this.tileMap = tileMap;
+    this.entities = entities;
+    this.exits = exits;
+  }
+
+  /**
    * Creates a RoomTemplate object with entities
    * @param grid the grid of the room in a Grid
    * @param tileMap the corresponding Tile objects for each Character
@@ -51,9 +66,7 @@ public class RoomTemplate {
    */
   public RoomTemplate(Grid<Character> grid,
       Map<Character, Tile> tileMap, List<Entity> entities) {
-    this.grid = grid;
-    this.tileMap = tileMap;
-    this.entities = entities;
+    this(grid, tileMap, entities, new ArrayList<Exit>());
   }
 
   /**
@@ -63,7 +76,7 @@ public class RoomTemplate {
    */
   public RoomTemplate(Grid<Character> grid,
       Map<Character, Tile> tileMap) {
-    this(grid, tileMap, new ArrayList<Entity>());
+    this(grid, tileMap, new ArrayList<Entity>(), new ArrayList<Exit>());
   }
 
   /**

@@ -4,7 +4,6 @@ import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.managers.EventManager;
 import tepigmc.textrpg.world.Coordinates;
 import tepigmc.textrpg.world.Direction;
-import tepigmc.textrpg.world.Door;
 import tepigmc.textrpg.world.Room;
 import tepigmc.textrpg.world.Tile;
 
@@ -166,8 +165,6 @@ public abstract class Entity {
    */
   public boolean canMoveCondition(Coordinates coordinates) {
     Tile tile = TextRpg.currentRoom().getTile(coordinates);
-    if (tile instanceof Door && !this.canChangeRooms)
-      return false;
     return !tile.isSolid();
   }
 
