@@ -68,7 +68,9 @@ public class EventManager {
    * @param event the KeyEvent from the UI
    */
   public static void keyReleased(KeyEvent event) {
-    // TODO handle enter
+    int key = event.getKeyCode();
+    if (key == KeyEvent.VK_ENTER)
+      TextManager.addMessage("Enter Pressed!");
   }
 
   /**
