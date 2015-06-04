@@ -55,8 +55,9 @@ public class RoomGeneration {
       roomTemplate.putKey('D', Tiles.door);
       Room room = new Room(RoomGenerator.HOUSE);
       TextRpg.world.addRoom(room);
+      int entranceId = roomTemplate.addExit(null);
       // TODO figure out getting Coordinates to teleport to
-      roomTemplate.addExit(new Exit(new Coordinates(rows - 1, cols / 2 - 1), new Coordinates(1, 1), room.getId()));
+      roomTemplate.addExit(new Exit(new Coordinates(rows - 1, cols / 2 - 1), room.getId(), entranceId));
     }
     return roomTemplate;
   }

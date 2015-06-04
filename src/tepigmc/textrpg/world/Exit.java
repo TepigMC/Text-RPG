@@ -2,19 +2,19 @@ package tepigmc.textrpg.world;
 
 public class Exit {
   private Coordinates orginCoordinates;
-  private Coordinates newCoordinates;
   private int roomId;
+  private int entranceId;
 
   /**
    * Creates an Exit
    * @param orginCoordinates the Coordinates to teleport from
-   * @param newCoordinates the Coordinates in the other Room to teleport to
    * @param roomId the id of the Room to teleport to
+   * @param entrance the Entrance to teleport to in the Room
    */
-  public Exit(Coordinates orginCoordinates, Coordinates newCoordinates, int roomId) {
+  public Exit(Coordinates orginCoordinates, int roomId, int entranceId) {
     setOrginCoordinates(orginCoordinates);
-    setNewCoordinates(newCoordinates);
     setRoomId(roomId);
+    setEntranceId(entranceId);
   }
 
   /**
@@ -26,19 +26,19 @@ public class Exit {
   }
 
   /**
-   * Gets the Coordinates that the Player is teleported to in the other room
-   * @return the newCoordinates
-   */
-  public Coordinates getNewCoordinates() {
-    return this.newCoordinates;
-  }
-
-  /**
    * Gets the Room id to be teleported to
    * @return the roomId
    */
   public int getRoomId() {
     return roomId;
+  }
+
+  /**
+   * Gets the id of the Exit to be teleported to
+   * @return the entranceId
+   */
+  public int getEntranceId() {
+    return entranceId;
   }
 
   /**
@@ -50,18 +50,18 @@ public class Exit {
   }
 
   /**
-   * Sets the new Coordinates to the given value
-   * @param newCoordinates the newCoordinates to set
-   */
-  public void setNewCoordinates(Coordinates newCoordinates) {
-    this.newCoordinates = newCoordinates;
-  }
-
-  /**
    * Sets the Room id to the given value
    * @param roomId the roomId to set
    */
   public void setRoomId(int roomId) {
     this.roomId = roomId;
+  }
+
+  /**
+   * Sets the id of the Exit to be teleported to
+   * @param entranceId the entranceId to set
+   */
+  public void setEntranceId(int entranceId) {
+    this.entranceId = entranceId;
   }
 }

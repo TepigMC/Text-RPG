@@ -218,9 +218,11 @@ public class RoomTemplate {
   /**
    * Adds an Exit to the Exit List
    * @param exit the Exit to add
+   * @return the index of the Exit
    */
-  public void addExit(Exit exit) {
+  public int addExit(Exit exit) {
     this.exits.add(exit);
+    return this.exits.size() - 1;
   }
 
   /**
