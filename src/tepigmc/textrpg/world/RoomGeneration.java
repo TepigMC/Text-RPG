@@ -1,5 +1,6 @@
 package tepigmc.textrpg.world;
 
+import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.entity.Entity;
 import tepigmc.util.Grid;
 import tepigmc.util.RandomUtils;
@@ -14,7 +15,7 @@ public class RoomGeneration {
     Grid<Character> grid = roomTemplate.getGrid();
     char emptyChar = ' ';
     grid.setAll(emptyChar);
-    roomTemplate.put(emptyChar, Tiles.empty);
+    roomTemplate.putKey(emptyChar, Tiles.empty);
     return roomTemplate;
   }
 
@@ -30,14 +31,14 @@ public class RoomGeneration {
       for (int r = 0; r < rows; r++) {
         if (r == 0 || r == rows - 1) {
           for (int c = 0; c < cols; c++)
-            roomTemplate.set(r, c, wall);
+            roomTemplate.setTile(r, c, wall);
         }
         else {
-          roomTemplate.set(r, 0, wall);
-          roomTemplate.set(r, cols - 1, wall);
+          roomTemplate.setTile(r, 0, wall);
+          roomTemplate.setTile(r, cols - 1, wall);
         }
       }
-      roomTemplate.put(wall, Tiles.wall);
+      roomTemplate.putKey(wall, Tiles.wall);
     }
     return roomTemplate;
   }
@@ -50,8 +51,12 @@ public class RoomGeneration {
   public static RoomTemplate addDoor(RoomTemplate roomTemplate) {
     if (roomTemplate != null) {
       int rows = roomTemplate.rows(), cols = roomTemplate.cols();
-      roomTemplate.set(rows - 1, cols / 2 - 1, 'D');
-      roomTemplate.put('D', new Door(RoomGenerator.HOUSE));
+      roomTemplate.setTile(rows - 1, cols / 2 - 1, 'D');
+      roomTemplate.putKey('D', Tiles.door);
+      Room room = new Room(RoomGenerator.HOUSE);
+      TextRpg.world.addRoom(room);
+      // TODO figure out getting Coordinates to teleport to
+      roomTemplate.addExit(new Exit(new Coordinates(rows - 1, cols / 2 - 1), new Coordinates(1, 1), room.getId()));
     }
     return roomTemplate;
   }

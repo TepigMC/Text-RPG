@@ -13,6 +13,7 @@ import tepigmc.textrpg.entity.Entity;
 import tepigmc.textrpg.entity.NonPlayerCharacter;
 import tepigmc.textrpg.entity.Player;
 import tepigmc.textrpg.world.Coordinates;
+import tepigmc.textrpg.world.Exit;
 import tepigmc.textrpg.world.Room;
 import tepigmc.textrpg.world.RoomRenderer;
 import tepigmc.textrpg.world.Tile;
@@ -27,18 +28,19 @@ public class RoomRendererTest {
   final Entity e2 = new NonPlayerCharacter(new Coordinates(2, 2), 'B');
   Grid<Tile> tiles;
   List<Entity> entities;
+  List<Exit> exits;
   Room room;
-  Room roomEntities;
+  Room roomExtended;
 
   @Before
   public void setUp() throws Exception {
-    tiles = new GridArray<Tile>(new Tile[][] { { x, x, x, x }, { x, o, o, x }, { x, o, o, x },
-        { x, x, x, x } });
+    tiles = new GridArray<Tile>(new Tile[][] { { x, x, x, x }, { x, o, o, x },
+        { x, o, o, x }, { x, x, x, x } });
     entities = new ArrayList<Entity>();
     entities.add(e1);
     entities.add(e2);
     room = new Room(tiles);
-    roomEntities = new Room(tiles, entities);
+    roomExtended = new Room(tiles, entities, exits);
   }
 
   @After
@@ -57,11 +59,12 @@ public class RoomRendererTest {
 
   @Test
   public void testRender_entities() {
-    assertEquals("xxxx\nx Ax\nx Bx\nxxxx", new RoomRenderer(roomEntities).render());
+    assertEquals("xxxx\nx Ax\nx Bx\nxxxx", new RoomRenderer(roomExtended).render());
   }
 
   @Test
   public void testRender_entitiesAndPlayer() {
-    assertEquals("xxxx\nx Ax\nxPBx\nxxxx", new RoomRenderer(roomEntities, player).render());
+    assertEquals("xxxx\nx Ax\nxPBx\nxxxx",
+        new RoomRenderer(roomExtended, player).render());
   }
 }

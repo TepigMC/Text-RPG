@@ -3,6 +3,7 @@ package tepigmc.textrpg.world;
 import tepigmc.textrpg.TextRpg;
 import tepigmc.textrpg.entity.Entity;
 
+@Deprecated
 public class Door extends Tile {
   private int roomId;
 

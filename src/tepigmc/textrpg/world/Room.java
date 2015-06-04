@@ -12,6 +12,7 @@ public class Room {
   private int id = nextId++;
   private Grid<Tile> tiles;
   private List<Entity> entities;
+  private List<Exit> exits;
   private RoomGenerator roomGenerator;
   private boolean hasGenerated;
 
@@ -20,9 +21,10 @@ public class Room {
    * @param tiles a Grid of Tiles
    * @param entities a List of Entities
    */
-  public Room(Grid<Tile> tiles, List<Entity> entities) {
+  public Room(Grid<Tile> tiles, List<Entity> entities, List<Exit> exits) {
     this.tiles = tiles;
     this.entities = entities;
+    this.exits = exits;
     this.hasGenerated = true;
   }
 
@@ -31,7 +33,7 @@ public class Room {
    * @param tiles a Grid of Tiles
    */
   public Room(Grid<Tile> tiles) {
-    this(tiles, new ArrayList<Entity>());
+    this(tiles, new ArrayList<Entity>(), new ArrayList<Exit>());
   }
 
   /**
@@ -39,7 +41,7 @@ public class Room {
    * @param roomTemplate the RoomTemplate to create the World from
    */
   public Room(RoomTemplate roomTemplate) {
-    this(roomTemplate.createTiles(), roomTemplate.getEntities());
+    this(roomTemplate.createTiles(), roomTemplate.getEntities(), roomTemplate.getExits());
   }
 
   /**
@@ -88,6 +90,15 @@ public class Room {
   public List<Entity> getEntities() {
     load();
     return this.entities;
+  }
+
+  /**
+   * Gets the List of Exit objects
+   * @return exits
+   */
+  public List<Exit> getExits() {
+    load();
+    return this.exits;
   }
 
   /**

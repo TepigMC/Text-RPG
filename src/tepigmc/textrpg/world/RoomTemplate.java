@@ -20,6 +20,7 @@ public class RoomTemplate {
   private Grid<Character> grid;
   private Map<Character, Tile> tileMap;
   private List<Entity> entities;
+  private List<Exit> exits;
 
   /**
    * Creates a RoomTemplate object with a given size
@@ -67,16 +68,6 @@ public class RoomTemplate {
 
   /**
    * Creates a RoomTemplate object
-   * @param grid the grid of the room in a 2D Character array
-   * @param tileMap the corresponding Tile objects for each Character
-   */
-  @Deprecated
-  public RoomTemplate(Character[][] grid, Map<Character, Tile> tileMap) {
-    this(new GridArray<Character>(grid), tileMap);
-  }
-
-  /**
-   * Creates a RoomTemplate object
    * @param grid the grid of the room in a 2D char array
    * @param tileMap the corresponding Tile objects for each Character
    */
@@ -93,7 +84,7 @@ public class RoomTemplate {
    */
   @Deprecated
   public RoomTemplate(String[] grid, Map<Character, Tile> tileMap) {
-    this(ArrayUtils.toCharArray2D(grid), tileMap);
+    this(new GridArray<Character>(ArrayUtils.toCharacterArray2D(grid)), tileMap);
   }
 
   /**
@@ -143,6 +134,14 @@ public class RoomTemplate {
   }
 
   /**
+   * Gets the List of exits
+   * @return the exits
+   */
+  public List<Exit> getExits() {
+    return this.exits;
+  }
+
+  /**
    * Gets the height of the RoomTemplate
    * @return the number of rows in the Grid
    */
@@ -177,7 +176,7 @@ public class RoomTemplate {
    * @param key the char to be set in the grid
    * @return the previous item at that position
    */
-  public Character set(int row, int col, Character key) {
+  public Character setTile(int row, int col, Character key) {
     Character previous = getCharacter(row, col);
     if (this.grid == null)
       this.grid = new GridArray<Character>(0, 0);
@@ -191,7 +190,7 @@ public class RoomTemplate {
    * @param value the Tile used in the Room
    * @return the previous value associated with key
    */
-  public Tile put(Character key, Tile value) {
+  public Tile putKey(Character key, Tile value) {
     return this.tileMap.put(key, value);
   }
 
@@ -201,6 +200,14 @@ public class RoomTemplate {
    */
   public void addEntity(Entity entity) {
     this.entities.add(entity);
+  }
+
+  /**
+   * Adds an Exit to the Exit List
+   * @param exit the Exit to add
+   */
+  public void addExit(Exit exit) {
+    this.exits.add(exit);
   }
 
   /**
